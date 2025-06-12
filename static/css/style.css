@@ -1,0 +1,63 @@
+
+
+/*NAVBAR STYLES*/
+#navbar {
+    background: linear-gradient(135deg, #14d188, #01f737);
+    padding-top: 10px;
+}
+
+/* Mobile input style */
+#mobile-search-form input {
+    border: 1px solid #000;
+    font-size: 0.9rem;
+}
+
+/* Second navbar default (mobile hidden) */
+.second-navbar {
+    display: none;
+    flex-direction: column;
+    list-style: none;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.second-navbar li {
+    margin: 10px 0;
+}
+
+.second-navbar a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+}
+
+.desktop-search-form {
+    max-width: 300px;
+}
+
+.desktop-search-form input {
+    font-size: 0.9rem;
+}
+/*NAVBAR ENDS*/
+
+
+/*MEDIA QUIRES*/
+/* Desktop layout */
+@media screen and (min-width: 768px) {
+    .second-navbar {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: center;
+        gap: 50px;
+        background-color: transparent;
+        
+        
+    }
+
+    #hamburger-toggle,
+    #mobile-search-toggle,
+    #mobile-search-form {
+        display: none !important;
+    }
+}
