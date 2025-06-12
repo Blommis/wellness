@@ -8,21 +8,118 @@
     <meta name="description" content = "">
     {% block extra_meta %}
     {% endblock %}
-    <!--CSS links-->
+
     <!--Bootstrap css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
    
     <title>Wellness {% block extra_title %}{% endblock %}</title>
+
+    <!--CSS links-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body>
-    <header class ="container-fluid fixed-top">
-    </header>
+<header class="container-fluid fixed-top" id="navbar">
+    <div class="row align-items-center py-2">
+
+        <!-- Mobile: Hamburger + Search icon + Input -->
+        <div class="col-4 d-md-none text-start position-relative">
+            <!-- Hamburger -->
+            <button id="hamburger-toggle" class="btn p-0 me-2" aria-label="Toggle menu">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+
+            <!-- Mobile Search Icon -->
+            <button id="mobile-search-toggle" class="btn p-0" type="button" aria-label="Search">
+                <i class="fas fa-search fa-lg"></i>
+            </button>
+
+            <!-- Mobile Search Input -->
+            <form method="GET" action="" id="mobile-search-form" class="position-absolute" style="display: none; top: 40px; left: 0; right: 0; z-index: 1000;">
+                <input class="form-control form-control-sm" type="text" name="q" placeholder="Search...">
+            </form>
+        </div>
+
+        <!-- Mobile: Logo centered -->
+        <div class="col-4 d-md-none text-center">
+            <a href="{% url 'home' %}" class="nav-link main-logo-link p-0 m-0">
+                <h2 class="logo-font text-black my-0"><strong>Wellness</strong></h2>
+            </a>
+        </div>
+
+        <!-- Mobile: Account/Cart aligned right -->
+        <div class="col-4 d-md-none text-end">
+            <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                    <a href="{% url 'account_login' %}" class="nav-link">
+                        <i class="fas fa-user fa-lg"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-shopping-bag fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Desktop: Logo centered -->
+        <div class="col-md-4 d-none d-md-block text-center">
+            <a href="{% url 'home' %}" class="nav-link main-logo-link p-0 m-0">
+                <h2 class="logo-font text-black my-0"><strong>Wellness</strong></h2>
+            </a>
+        </div>
+
+        <!-- Desktop: Search bar -->
+        <div class="col-md-4 d-none d-md-flex justify-content-center">
+            <form method="GET" action="" class="desktop-search-form d-flex w-75">
+                <input class="form-control form-control-sm border border-black rounded-0" type="text" name="q"
+                    placeholder="Search">
+                <button class="btn btn-black border border-black rounded-0 ms-1" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Desktop: Account & Cart -->
+        <div class="col-md-4 d-none d-md-flex align-items-center justify-content-center">
+            <ul class="list-inline mb-0">
+                <li class="list-inline-item me-3">
+                    <a href="{% url 'account_login' %}" class="nav-link">
+                        <i class="fas fa-user fa-lg"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-shopping-bag fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Second Navbar -->
+    <ul class="second-navbar" id="mobile-menu">
+        <li><a href="#">Supplements</a></li>
+        <li><a href="#">Meal Plans</a></li>
+        <li><a href="#">Recipes</a></li>
+        <li><a href="#">About</a></li>
+    </ul>
+</header>
+
+
+
+
+
+
     
     {% block content %}
     {% endblock %}
 
     <!--Javascript links-->
+    <script src="{% static 'js/script.js' %}"></script>
     <!--Bootstrap js-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js" integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous"></script>
+    <!--Font awesome link-->
+    <script src="https://kit.fontawesome.com/e0a995d092.js" crossorigin="anonymous"></script>
   </body>
 </html>
