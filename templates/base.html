@@ -106,14 +106,39 @@
     </ul>
 </header>
 
-
-
-
-
-
-    
     {% block content %}
     {% endblock %}
+
+   <!-- Footer -->
+<section id="footer">
+  <div>
+    <h4 class="footerheader">Home</h4>
+    <ul>
+      <li>Events</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="footerheader">Services</h4>
+    <ul>
+      <li>Supplements</li>
+      <li>Meal plans</li>
+      <li>Recipes</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="footerheader">About</h4>
+  </div>
+  <div class="footer-form">
+    <h4 class="footerheader">Subscribe to our newsletter</h4>
+    <form>
+      <label for="email"></label>
+      <input type="email" id="email" placeholder="Enter your email">
+      
+      <input type="submit" value="Subscribe">
+    </form>
+  </div>
+</section>
+
 
     <!--Javascript links-->
     <script src="{% static 'js/script.js' %}"></script>
