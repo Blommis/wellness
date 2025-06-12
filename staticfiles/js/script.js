@@ -3,11 +3,14 @@ const menu = document.getElementById("mobile-menu");
 const searchToggle = document.getElementById("mobile-search-toggle");
 const searchForm = document.getElementById("mobile-search-form");
 
+// Add a click event to toggle menu visibility
 if (toggleBtn && menu) {
     toggleBtn.addEventListener("click", () => {
         menu.style.display = menu.style.display === "flex" ? "none" : "flex";
     });
 }
+    
+// If both the mobile search icon and the search form exist
 
 if (searchToggle && searchForm) {
     searchToggle.addEventListener("click", () => {
