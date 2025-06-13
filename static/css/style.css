@@ -207,4 +207,8 @@ ul li a {
   .hero-buttons {
    justify-content: flex-start
 }
+.supplement-card {
+    flex: 1 1 20%; 
+    max-width: 20%;
+  }
 }
