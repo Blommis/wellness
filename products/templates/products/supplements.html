@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>All Supplements</h1>
+
+<ul class="supplement-list">
+  {% for supplement in supplements %}
+    <li class="supplement-card">
+      <img src="{{ supplement.image.url }}" alt="{{ supplement.name }}" class="supplement-image">
+      <h2 class="supplement-title">{{ supplement.name }}</h2>
+      <p class="supplement-description">{{ supplement.description }}</p>
+      <p class="supplement-price">Price: £{{ supplement.price }}</p>
+      <a href="#" class="add-to-cart-btn">Buy now</a>
+    </li>
+  {% empty %}
+    <li class="supplement-empty">No supplements available.</li>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}
