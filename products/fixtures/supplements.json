@@ -1,0 +1,24 @@
+[
+  {
+    "model": "products.supplement",
+    "pk": 1,
+    "fields": {
+      "name": "Vitamin D",
+      "description": "Supports bone health and immune system.",
+      "price": "12.00",
+      "sku": "SUPP-VD-001",
+      "image": "vitaminD.webp"
+    }
+  },
+  {
+    "model": "products.supplement",
+    "pk": 2,
+    "fields": {
+      "name": "Magnesium",
+      "description": "Contributes to normal muscle function.",
+      "price": "9.00",
+      "sku": "SUPP-MG-002",
+      "image": "magnesium.webp"
+    }
+  }
+]
