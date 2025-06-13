@@ -41,10 +41,30 @@
 }
 /*NAVBAR ENDS*/
 
+/*HERO SECTION*/ 
+ #hero{
+  background-image: url("/static/images/twofriendssmiling.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+ }
+ .hero-buttons {
+  display: flex;
+   gap: 10px;
+   flex-wrap: wrap;
+   justify-content: center;
+}
 /*FOOTER*/
 #footer {
-  position: fixed;
-  bottom: 0;
   background: linear-gradient(135deg, #14d188, #01f737);
   padding: 30px;
   display: flex;
@@ -105,8 +125,20 @@
 
       #footer {
         flex-direction: row;
-        gap: 150px;
         align-items: flex-start;
+        gap: 100px;
         justify-content: center;
+        
   }
+
+  #hero{
+    height: 500px;
+    flex-direction: flex-start;
+    text-align: left;
+    padding-left: 150px;
+    padding-top: 100px;
+ }
+  .hero-buttons {
+   justify-content: flex-start
+}
 }
