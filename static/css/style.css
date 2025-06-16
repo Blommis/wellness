@@ -1,4 +1,7 @@
-
+/*GLOBAL STYLE*/
+body{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 /*NAVBAR STYLES*/
 #navbar {
@@ -63,6 +66,33 @@
    flex-wrap: wrap;
    justify-content: center;
 }
+/*EVENT SECTION*/
+
+.events-section {
+  padding: 60px 20px;
+  text-align: left;
+}
+.events-section h1{
+  text-align: center;
+}
+.events-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.event-card {
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.event-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
 
 /*SUPPLEMENTS*/
 #supplement{
