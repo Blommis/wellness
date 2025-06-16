@@ -65,8 +65,19 @@
 }
 
 /*SUPPLEMENTS*/
+#supplement{
+  padding-top: 50px;
+  text-align: center;
+}
+.supplement-header img {
+  padding-bottom: 10px;
+  width: 100%;
+  height: 200px;
+  display: block;
+  object-fit: cover;
+}
 .supplement-list {
-  padding: 100px 0 0 0;
+  padding: 10px 0 0 0;
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -254,6 +265,9 @@ ul li a {
  }
   .hero-buttons {
    justify-content: flex-start
+}
+#supplement{
+  margin-top: 50px;
 }
 .supplement-card {
     flex: 1 1 20%; 

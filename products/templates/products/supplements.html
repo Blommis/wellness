@@ -2,8 +2,11 @@
 {% load static %}
 
 {% block content %}
-<h1>All Supplements</h1>
-
+<section id ="supplement">
+<div class="supplement-header">
+    <img src="{% static 'images/supplementhero.webp' %}" alt="A container of protein powder alongside snack bars branded with the word 'Wellness">
+  <h1>All supplements </h1>
+</div>
 <ul class="supplement-list">
   {% for supplement in supplements %}
     <li class="supplement-card">
@@ -17,4 +20,5 @@
     <li class="supplement-empty">No supplements available.</li>
   {% endfor %}
 </ul>
+</section>
 {% endblock %}
