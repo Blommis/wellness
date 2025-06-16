@@ -9,15 +9,12 @@
     <li class="supplement-card">
       <img src="{{ supplement.image.url }}" alt="{{ supplement.name }}" class="supplement-image">
       <h2 class="supplement-title">{{ supplement.name }}</h2>
-      <p class="supplement-description">{{ supplement.description }}</p>
       <p class="supplement-price">Price: £{{ supplement.price }}</p>
       <a href="#" class="add-to-cart-btn">Buy now</a>
-      <a href="" class="moredetails-btn">More details</a>
+      <a href="{% url 'products:supplement_detail' supplement.pk %}" class="moredetails-btn">More details</a>
     </li>
   {% empty %}
     <li class="supplement-empty">No supplements available.</li>
   {% endfor %}
 </ul>
-
-
 {% endblock %}

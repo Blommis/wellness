@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="supplement-detail">
+  <img src="{{ supplement.image.url }}" alt="{{ supplement.name }}">
+  <h1>{{ supplement.name }}</h1>
+  <p class="supplement-description">{{ supplement.description }}</p>
+  <p class="supplement-price">Price: £{{ supplement.price }}</p>
+  <a href="#" class="add-to-cart-btn">Buy now</a>
+</div>
+{% endblock %}
