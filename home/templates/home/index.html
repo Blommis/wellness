@@ -11,6 +11,23 @@
             <a href="{% url 'account_signup' %}" class="btn btn-success">Become a Member</a>
             <a href="{% url 'products:supplements' %}" class="btn btn-outline-light">Browse supplements</a>
         </div>
-
     </section>
+
+     <section class="events-section">
+            <h1>Upcoming Events</h1>
+            <div class="events-container">
+                {% for event in events %}
+                <div class="event-card">
+                    <h2>{{ event.title }}</h2>
+                    <p>{{ event.description }}</p>
+                    <p><strong>Date:</strong> {{ event.date }}</p>
+                    <p><strong>Time:</strong> {{ event.time }}</p>
+                    <p><strong>Location:</strong> {{ event.location }}</p>
+                </div>
+                {% empty %}
+                <p>No upcoming events at the moment.</p>
+                {% endfor %}
+            </div>
+      </section>
+
 {% endblock %}
