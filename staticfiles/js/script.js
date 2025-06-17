@@ -21,3 +21,12 @@ if (searchToggle && searchForm) {
         }
     });
 }
+
+// event carousel function 
+
+document.addEventListener("DOMContentLoaded", function () {
+const track = document.querySelector(".carousel-track");
+const slides = document.querySelectorAll(".event-slide");
+const btnLeft = document.querySelector(".carousel-btn.left");
+const btnRight = document.querySelector(".carousel-btn.right");
+});
