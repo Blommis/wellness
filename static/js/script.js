@@ -30,5 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnLeft = document.querySelector(".carousel-btn.left");
   const btnRight = document.querySelector(".carousel-btn.right");
 
-  
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    const offset = -currentIndex * 100;
+    track.style.transform = `translateX(${offset}%)`;
+  }
+
+
 });
