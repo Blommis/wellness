@@ -13,21 +13,31 @@
         </div>
     </section>
 
-     <section class="events-section">
-            <h1>Upcoming Events</h1>
-            <div class="events-container">
-                {% for event in events %}
-                <div class="event-card">
-                    <h2>{{ event.title }}</h2>
-                    <p>{{ event.description }}</p>
-                    <p><strong>Date:</strong> {{ event.date }}</p>
-                    <p><strong>Time:</strong> {{ event.time }}</p>
-                    <p><strong>Location:</strong> {{ event.location }}</p>
-                </div>
-                {% empty %}
-                <p>No upcoming events at the moment.</p>
-                {% endfor %}
-            </div>
-      </section>
+    <section class="events-carousel-section">
+  <div class="carousel-wrapper">
+    <h1>Upcoming Events</h1>
+    <div class="carousel-track">
+      {% for event in events %}
+  <div 
+    class="event-slide" 
+    {% if event.image %}
+      style="background-image: url('{{ event.image.url }}');"
+    {% endif %} 
+    >
+    <div class="event-content">
+      <h2>{{ event.title }}</h2>
+      <p>{{ event.description }}</p>
+      <p><strong>Date:</strong> {{ event.date }}</p>
+      <p><strong>Time:</strong> {{ event.time }}</p>
+      <p><strong>Location:</strong> {{ event.location }}</p>
+    </div>
+  </div>
+{% endfor %}
+    </div>
+    <button class="carousel-btn left">&#10094;</button>
+    <button class="carousel-btn right">&#10095;</button>
+  </div>
+</section>
+
 
 {% endblock %}
