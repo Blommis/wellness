@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const offset = -currentIndex * 100;
     track.style.transform = `translateX(${offset}%)`;
   }
-
   btnLeft.addEventListener("click", function () {
     currentIndex = (currentIndex - 1 + slides.length) % slides.length;
     updateCarousel();
@@ -46,4 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
     currentIndex = (currentIndex + 1) % slides.length;
     updateCarousel();
   });
+
+
 });
