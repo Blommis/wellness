@@ -37,5 +37,13 @@ document.addEventListener("DOMContentLoaded", function () {
     track.style.transform = `translateX(${offset}%)`;
   }
 
+  btnLeft.addEventListener("click", function () {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateCarousel();
+  });
 
+  btnRight.addEventListener("click", function () {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateCarousel();
+  });
 });
