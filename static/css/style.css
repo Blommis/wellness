@@ -68,30 +68,69 @@ body{
 }
 /*EVENT SECTION*/
 
-.events-section {
+.events-carousel-section {
   padding: 60px 20px;
-  text-align: left;
-}
-.events-section h1{
   text-align: center;
 }
-.events-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-  margin-top: 40px;
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  max-width: 1000px;
+  margin: auto;
 }
 
-.event-card {
+.carousel-track {
+  display: flex;
+  transition: transform 1s ease;
+}
+
+.event-slide {
+  min-width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
   padding: 20px;
-  width: 250px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  color: white;
 }
-.event-card h2 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
+
+/* Adds a dark overlay to improve text readability on background images*/
+.event-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
 }
+
+.event-content {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  color: white;
+  font-size: 3rem;
+  background-color: transparent;
+  border: none;
+  padding: 1px;
+  z-index: 2;
+}
+
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
+
 
 
 /*SUPPLEMENTS*/
