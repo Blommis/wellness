@@ -7,6 +7,7 @@ class Event(models.Model):
     date = models.DateField()
     time = models.TimeField()
     location = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='media/', blank=True, null=True)
 
     def __str__(self):
         return self.title
