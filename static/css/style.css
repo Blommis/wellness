@@ -270,6 +270,14 @@ main {
   font-size: 1rem;
   margin-bottom: 10px;
 }
+/*SUPPLEMENTS ENDS*/
+
+/*SHOPPING BAG*/
+#shopping-bag-container{
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
 /*FOOTER*/
 #footer {
   background: linear-gradient(135deg, #14d188, #01f737);
@@ -393,4 +401,9 @@ ul li a {
     margin-left: 340px;
     max-width: 250px;
   }
+  #shopping-bag-container{
+  padding-top: 150px;
+  
+}
+
 }
