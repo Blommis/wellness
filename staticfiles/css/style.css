@@ -1,6 +1,15 @@
 /*GLOBAL STYLE*/
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
 body{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+main {
+  flex: 1;
 }
 
 /*NAVBAR STYLES*/
