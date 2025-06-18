@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Supplement
+from .models import Supplement, MealPlan
 # Register your models here.
 
 class SupplementAdmin(admin.ModelAdmin):
@@ -11,4 +11,13 @@ class SupplementAdmin(admin.ModelAdmin):
     )
 
 
+class MealPlanAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'calories',
+        'price',
+    )
+
+
 admin.site.register(Supplement, SupplementAdmin)
+admin.site.register(MealPlan)

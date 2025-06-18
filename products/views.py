@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from .models import Supplement
+from .models import MealPlan
 # Create your views here.
 
 
@@ -34,3 +35,9 @@ def supplement_detail(request, pk):
         'supplement': supplement,
     }
     return render(request, 'products/supplement_detail.html', context)
+
+
+def view_mealplan(request):
+    """ A view that shows mealplans content"""
+    
+    return render(request, 'products/mealplan.html')
