@@ -7,24 +7,37 @@
   <h1 class="text-center mb-4">Your Shopping Bag</h1>
 
   {% if bag_items %}
-  <table>
-        <tbody>
-        {% for item in bag_items %}
+    <div class="shopping-bag-responsive">
+     <table class="shopping-bag-table">
+          <thead>
             <tr>
-                <td>{{ item.product.name }}</td>
-                <td>£{{ item.product.price }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>£{{ item.product.price|floatformat:2|add:item.quantity|floatformat:2 }}</td>
-                <td>
-                <form method="POST" action="{% url 'remove_from_bag' item.product.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm">×</button>
-                </form>
-                </td>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Subtotal</th>
+                <th scope="col">Remove</th>
             </tr>
-        {% endfor %}
-        </tbody>
- </table>
+          </thead>
+
+            <tbody>
+            {% for item in bag_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>£{{ item.product.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>£{{ item.product.price|floatformat:2|add:item.quantity|floatformat:2 }}</td>
+                    <td>
+                    <form method="POST" action="{% url 'remove_from_bag' item.product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">×</button>
+                    </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+ </div>
+
   {% else %}
     <p class="text-center">Your bag is empty.</p>
     <div class="text-center mt-4">
