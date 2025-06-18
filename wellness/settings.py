@@ -27,7 +27,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'django-insecure--+zfbz@yts_va1a#_x8=&locy90tm4vndox-3c^j1s4@q3mhp3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'products',
     'home',
+    'bag',
 ]
 
 MIDDLEWARE = [
