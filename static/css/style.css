@@ -271,7 +271,11 @@ main {
   margin-bottom: 10px;
 }
 /*SUPPLEMENTS ENDS*/
-
+/*MEAL PLAN*/
+.meal-plan-container{
+  padding-top: 100px;
+}
+/*MEAL PLAN ENDS*/
 /*SHOPPING BAG*/
 #shopping-bag-container{
   padding-top: 100px;
@@ -404,6 +408,9 @@ ul li a {
   #shopping-bag-container{
   padding-top: 150px;
   
+}
+.meal-plan-container{
+  padding-top: 150px;
 }
 
 }
