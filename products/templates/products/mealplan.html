@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="meal-plan-container">
+    <h1 class="text-center mb-4">Our Meal Plans</h1>
+
+    {% if mealplans %}
+        <div class="row">
+            {% for meal in mealplans %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ meal.name }}</h5>
+                            <p class="card-text">{{ meal.description }}</p>
+                            <p><strong>Calories:</strong> {{ meal.calories }}</p>
+                            <p><strong>Price:</strong> £{{ meal.price }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">No meal plans available at the moment.</p>
+    {% endif %}
+</div>
+{% endblock %}
