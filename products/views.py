@@ -38,6 +38,11 @@ def supplement_detail(request, pk):
 
 
 def view_mealplan(request):
-    """ A view that shows mealplans content"""
-    
-    return render(request, 'products/mealplan.html')
+    """ A view that shows mealplans content """
+    mealplans = MealPlan.objects.all()
+
+    context = {
+        'mealplans': mealplans,
+    }
+
+    return render(request, 'products/mealplan.html', context)
