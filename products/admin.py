@@ -16,8 +16,9 @@ class MealPlanAdmin(admin.ModelAdmin):
         'name',
         'calories',
         'price',
+        'sku',
     )
 
 
 admin.site.register(Supplement, SupplementAdmin)
-admin.site.register(MealPlan)
+admin.site.register(MealPlan, MealPlanAdmin)
