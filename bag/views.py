@@ -66,3 +66,16 @@ def add_to_bag(request):
     
     return redirect('view_bag')
     
+
+def remove_from_bag(request, item_key):
+    """Remove item from shopping bag"""
+    bag = request.session.get('bag', {})
+
+    if item_key in bag:
+        del bag[item_key]
+        request.session['bag'] = bag
+        messages.success(request, "Item removed from your bag.")
+    else:
+        messages.error(request, "Item not found in your bag.")
+
+    return redirect('view_bag')
