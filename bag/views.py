@@ -5,9 +5,32 @@ from products.models import Supplement, MealPlan
 
 
 def view_bag(request):
-    """ A view that shows shopping bag content"""
-    
-    return render(request, 'bag/bag.html')
+    """ A view to display the shopping bag contents """
+    bag = request.session.get('bag', {})
+    bag_items = []
+
+    for key, item_data in bag.items():
+        product_type, product_id = key.split('_')
+        product_id = int(product_id)
+
+        if product_type == 'supplement':
+            product = get_object_or_404(Supplement, pk=product_id)
+        elif product_type == 'mealplan':
+            product = get_object_or_404(MealPlan, pk=product_id)
+        else:
+            continue
+
+        bag_items.append({
+            'product': product,
+            'quantity': item_data['quantity'],
+            'type': product_type,
+            'key': key,
+        })
+
+    context = {
+        'bag_items': bag_items,
+    }
+    return render(request, 'bag/bag.html', context)
 
 
 
@@ -43,5 +66,3 @@ def add_to_bag(request):
     
     return redirect('view_bag')
     
-
-
