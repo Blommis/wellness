@@ -15,7 +15,13 @@
                             <p class="card-text">{{ meal.description }}</p>
                             <p><strong>Calories:</strong> {{ meal.calories }} per day</p>
                             <p class="mealplan-price"><strong> £{{ meal.price }}</strong></p>
-                            <a href="#" class="add-to-cart-btn">Buy now</a>
+                            
+                            <form method="POST" action="{% url 'add_to_bag' %}" class="mt-auto">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ meal.id }}">
+                                <input type="hidden" name="product_type" value="mealplan">
+                                <button type="submit" class="add-to-cart-btn">Buy now</button>
+                            </form>
                         </div>
                     </div>
                 </div>

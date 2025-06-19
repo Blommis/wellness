@@ -13,7 +13,14 @@
       <img src="{{ supplement.image.url }}" alt="{{ supplement.name }}" class="supplement-image">
       <h2 class="supplement-title">{{ supplement.name }}</h2>
       <p class="supplement-price">Price: £{{ supplement.price }}</p>
-      <a href="#" class="add-to-cart-btn">Buy now</a>
+      
+   <form method="POST" action="{% url 'add_to_bag' %}">
+    {% csrf_token %}
+    <input type="hidden" name="product_id" value="{{ supplement.id }}">
+    <input type="hidden" name="product_type" value="supplement">
+    <button type="submit" class="add-to-cart-btn">Buy now</button>
+    </form>
+
       <a href="{% url 'products:supplement_detail' supplement.pk %}" class="moredetails-btn">More details</a>
     </li>
   {% empty %}
