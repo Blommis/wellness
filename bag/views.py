@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from products.models import Supplement, MealPlan
 # Create your views here.
 
 
@@ -6,3 +8,40 @@ def view_bag(request):
     """ A view that shows shopping bag content"""
     
     return render(request, 'bag/bag.html')
+
+
+
+
+
+def add_to_bag(request): 
+    """add products to shopping cart"""
+
+    if request.method == "POST":
+        product_id = request.POST.get('product_id')
+        product_type = request.POST.get('product_type')
+
+        if not product_id or not product_type:
+            return redirect('view_bag')
+        
+        key = f"{product_type}_{product_id}"
+        bag = request.session.get('bag', {})
+
+        # supplement, quanity, user can user more than 1: 
+        if product_type == 'supplement':
+            if key in bag:
+                bag[key]['quantity'] += 1
+            else:
+                bag[key] = {'type': product_type, 'quantity': 1}
+
+
+        # user can only pick one for each plan for each order
+        elif product_type == 'mealplan':
+            bag[key] = {'type': product_type, 'quantity': 1}
+
+        request.session['bag'] = bag
+        return redirect('view_bag')
+    
+    return redirect('view_bag')
+    
+
+
