@@ -42,9 +42,10 @@ def add_to_bag(request):
     if request.method == "POST":
         product_id = request.POST.get('product_id')
         product_type = request.POST.get('product_type')
+        redirect_url = request.POST.get('redirect_url', 'view_bag')
 
         if not product_id or not product_type:
-            return redirect('view_bag')
+            return redirect(redirect_url)
         
         key = f"{product_type}_{product_id}"
         bag = request.session.get('bag', {})
@@ -62,7 +63,7 @@ def add_to_bag(request):
             bag[key] = {'type': product_type, 'quantity': 1}
 
         request.session['bag'] = bag
-        return redirect('view_bag')
+        return redirect(redirect_url)
     
     return redirect('view_bag')
     
