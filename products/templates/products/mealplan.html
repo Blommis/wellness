@@ -20,6 +20,7 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="product_id" value="{{ meal.id }}">
                                 <input type="hidden" name="product_type" value="mealplan">
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                 <button type="submit" class="add-to-cart-btn">Buy now</button>
                             </form>
                         </div>
