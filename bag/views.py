@@ -43,6 +43,7 @@ def add_to_bag(request):
         product_id = request.POST.get('product_id')
         product_type = request.POST.get('product_type')
         redirect_url = request.POST.get('redirect_url', 'view_bag')
+        quantity = int(request.POST.get('quantity', 1))
 
         if not product_id or not product_type:
             return redirect(redirect_url)
@@ -53,9 +54,9 @@ def add_to_bag(request):
         # supplement, quanity, user can user more than 1: 
         if product_type == 'supplement':
             if key in bag:
-                bag[key]['quantity'] += 1
+                bag[key]['quantity'] += quantity
             else:
-                bag[key] = {'type': product_type, 'quantity': 1}
+                bag[key] = {'type': product_type, 'quantity': quantity}
 
 
         # user can only pick one for each plan for each order
