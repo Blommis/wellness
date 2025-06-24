@@ -32,7 +32,10 @@
             </tbody>
     </table>
  </div>
-
+<!-- Total Price -->
+ <div class ="bag-total text-center mt-3">
+  <h4>Total: £{{ total_price|floatformat:2 }}</h4>
+</div>
   {% else %}
     <p class="text-center">Your bag is empty.</p>
     <div class="text-center mt-4">
