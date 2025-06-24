@@ -8,6 +8,7 @@ def view_bag(request):
     """ A view to display the shopping bag contents """
     bag = request.session.get('bag', {})
     bag_items = []
+    total_price = 0
 
     for key, item_data in bag.items():
         product_type, product_id = key.split('_')
@@ -20,16 +21,21 @@ def view_bag(request):
         else:
             continue
 
+        quantity = item_data['quantity']
+        subtotal = product.price * quantity
+        total_price += subtotal
+
         bag_items.append({
             'product': product,
             'quantity': item_data['quantity'],
             'type': product_type,
             'key': key,
-            'subtotal': product.price * item_data['quantity'],
+            'subtotal': subtotal,
         })
 
     context = {
         'bag_items': bag_items,
+        'total_price': total_price,
     }
     return render(request, 'bag/bag.html', context)
 
