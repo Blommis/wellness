@@ -25,6 +25,7 @@ def view_bag(request):
             'quantity': item_data['quantity'],
             'type': product_type,
             'key': key,
+            'subtotal': product.price * item_data['quantity'],
         })
 
     context = {

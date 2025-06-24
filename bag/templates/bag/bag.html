@@ -20,7 +20,7 @@
                     <td>{{ item.product.name }}</td>
                     <td>£{{ item.product.price }}</td>
                     <td>{{ item.quantity }}</td>
-                    <td>£{{ item.product.price|floatformat:2|add:item.quantity|floatformat:2 }}</td>
+                    <td>£{{ item.subtotal|floatformat:2 }}</td>
                     <td>
                     <form method="POST" action="{% url 'remove_from_bag' item.key %}" class="remove-form">
                         {% csrf_token %}
