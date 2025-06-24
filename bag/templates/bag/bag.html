@@ -22,9 +22,9 @@
                     <td>{{ item.quantity }}</td>
                     <td>£{{ item.product.price|floatformat:2|add:item.quantity|floatformat:2 }}</td>
                     <td>
-                    <form method="POST" action="{% url 'remove_from_bag' item.key %}">
+                    <form method="POST" action="{% url 'remove_from_bag' item.key %}" class="remove-form">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm">×</button>
+                        <button type="submit" class="remove-shopping-cart-btn"><i class="fa-solid fa-trash"></i></button>
                     </form>
                     </td>
                 </tr>
