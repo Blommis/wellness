@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Checkout</h1>
+
+    <div class="row">
+        <!-- Order form -->
+        <div class="col-lg-6 mb-4">
+            <form method="POST" action="{% url 'checkout' %}">
+                {% csrf_token %}
+                {{ order_form|crispy }}
+                <button type="submit" class="btn btn-primary btn-block mt-3">Place Order</button>
+            </form>
+        </div>
+
+        <!-- Order summary -->
+<div class="col-lg-6">
+    <div class="p-4 border rounded bg-light">
+        <h4>Order Summary</h4>
+
+        <ul class="list-unstyled">
+            {% for item in bag_items %}
+            <li>
+                {{ item.product.name }} × {{ item.quantity }} —
+                <strong>€{{ item.subtotal|floatformat:2 }}</strong>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <hr>
+
+        <ul class="list-unstyled">
+            <li>Items total: <strong>€{{ order_total|floatformat:2 }}</strong></li>
+            <li>Delivery: <strong>€{{ delivery_cost|floatformat:2 }}</strong></li>
+            <li class="mt-2">Total to pay: <strong>€{{ grand_total|floatformat:2 }}</strong></li>
+        </ul>
+
+        <p class="text-muted mt-2">You’ll receive a confirmation email after placing your order.</p>
+    </div>
+</div>
+
+    </div>
+</div>
+{% endblock %}
+
+
