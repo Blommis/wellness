@@ -356,6 +356,12 @@ main {
   margin: 0;
   cursor: pointer;
 }
+/*SHOPPING BAG ENDS*/
+
+/*CHECK OUT*/
+#order-container{
+  padding-top: 100px !important;
+}
 
 /*FOOTER*/
 #footer {
@@ -488,6 +494,9 @@ ul li a {
 }
 .meal-plan-container{
   padding-top: 150px;
+}
+#order-container{
+  padding-top: 150px !important;
 }
 
 }
