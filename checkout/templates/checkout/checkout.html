@@ -24,6 +24,9 @@
         <ul class="list-unstyled">
             {% for item in bag_items %}
             <li>
+                {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-width: 60px; max-height: 60px;">
+                      {% endif %}
                 {{ item.product.name }} × {{ item.quantity }} —
                 <strong>€{{ item.subtotal|floatformat:2 }}</strong>
             </li>
