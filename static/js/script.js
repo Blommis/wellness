@@ -48,3 +48,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+
+
+
+// Stripe checkout
+
+document.addEventListener('DOMContentLoaded', function(){
+  const stripePublicKey = document.getElementById('id_stripe_public_key').textContent.trim();
+  const clientSecret = document.getElementById('id_client_secret').textContent.trim();
+  const stripe = Stripe(stripePublicKey);
+  const elements = stripe.elements();
+})
