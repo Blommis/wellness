@@ -73,4 +73,13 @@ document.addEventListener('DOMContentLoaded', function(){
   };
   const card = elements.create("card", { style: style });
   card.mount("#card-element");
-})
+
+   card.on("change", function (event) {
+        const errorDiv = document.getElementById("card-errors");
+        if (event.error) {
+            errorDiv.textContent = event.error.message;
+        } else {
+            errorDiv.textContent = "";
+        }
+    });
+});
