@@ -58,4 +58,19 @@ document.addEventListener('DOMContentLoaded', function(){
   const clientSecret = document.getElementById('id_client_secret').textContent.trim();
   const stripe = Stripe(stripePublicKey);
   const elements = stripe.elements();
+
+  const style = {
+    base: {
+      color: "#000",
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSize: "16px",
+      "::placeholder": { color: "#aab7c4" }
+    },
+    invalid: {
+      color: "#fa755a",
+      iconColor: "#fa755a"
+    }
+  };
+  const card = elements.create("card", { style: style });
+  card.mount("#card-element");
 })
