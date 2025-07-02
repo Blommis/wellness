@@ -362,6 +362,23 @@ main {
 #order-container{
   padding-top: 100px !important;
 }
+#checkout_Success-page{
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+ #checkout_Success-page ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
 
 /*Took from stripe docs*/
 .StripeElement,
