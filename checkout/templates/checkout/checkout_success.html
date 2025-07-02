@@ -1,28 +1,45 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
-<div id="checkout_Success-page">
-  <h2>Thank you for your order!</h2>
-  <p>Your order number is <strong>{{ order.order_number }}</strong>.</p>
-    <ul>
-    {% for item in order.lineitems.all %}
-    <li> {% if item.product.image %}
-         <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-width: 60px; max-height: 60px;">
-         {% endif %}
-    </li>
-      <li>
-        {{ item.product.name }} × {{ item.quantity }}
-      </li>
-    {% endfor %}
-      <li>
-      <strong>Items Total:</strong>
-      €{{ order.order_total|floatformat:2 }} <span> <strong>Delivery:</strong>€{{ order.delivery_cost|floatformat:2 }}</span>
-    </li>
-     <li>
-      <strong>Grand Total:</strong>
-      <span><strong>€{{ order.grand_total|floatformat:2 }}</strong></span>
-    </li>
-  </ul>
-  <p>You’ll receive a confirmation email shortly to <strong>{{ order.email }}</strong>.</p>
-  <a href="{% url 'home' %}" class="btn btn-primary mt-3">Back to Home</a>
+<div class="container py-5" id="checkout_success-page">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Thank you for your order!</h2>
+          <p class="text-center">Your order number is <strong>{{ order.order_number }}</strong>.</p>
+          <ul class="list-group mb-4">
+            {% for item in order.lineitems.all %}
+              <li class="list-group-item d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                  {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                  {% endif %}
+                  <span>{{ item.product.name }} × {{ item.quantity }}</span>
+                </div>
+                <span>€{{ item.lineitem_total|floatformat:2 }}</span>
+              </li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between">
+              <span><strong>Items Total:</strong></span>
+              <span>€{{ order.order_total|floatformat:2 }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span><strong>Delivery:</strong></span>
+              <span>€{{ order.delivery_cost|floatformat:2 }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span><strong>Grand Total:</strong></span>
+              <span><strong>€{{ order.grand_total|floatformat:2 }}</strong></span>
+            </li>
+          </ul>
+          <p class="text-center">You’ll receive a confirmation email shortly to <strong>{{ order.email }}</strong>.</p>
+          <div class="text-center mt-4">
+            <a href="{% url 'home' %}" class="btn btn-success">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
