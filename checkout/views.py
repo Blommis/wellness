@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .forms import OrderForm
 from bag.context_processors import bag_contents
 from django.conf import settings
 import stripe
+from .models import Order
 # Create your views here.
 
 
@@ -40,3 +41,28 @@ def checkout(request):
     }
 
     return render(request, template, context)
+
+
+def checkout_success(request):
+    order_number = request.session.get('order_number')
+
+    if not order_number:
+        messages.error(request, "No order found.")
+        return redirect('bag')
+    
+    order = get_object_or_404(Order, order_number=order_number)
+
+    # Empty bag
+    if 'bag' in request.session:
+        del request.session['bag']
+
+    request.session.pop('order_number', None)
+
+    messages.success(request, f"Order {order_number} confirmed! A confirmation email will be sent to {order.email}.")
+
+    return render(request, 'checkout/checkout_success.html', {'order': order})
+
+
+
+
+    
