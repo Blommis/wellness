@@ -35,7 +35,7 @@ def checkout(request):
         'order_total': bag_data['total'],
         'delivery_cost': bag_data['delivery'],
         'grand_total': bag_data['grand_total'],
-        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+        'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
     }
 
