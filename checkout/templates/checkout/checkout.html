@@ -9,7 +9,7 @@
     <div class="row">
         <!-- Order form -->
         <div class="col-lg-6 mb-4">
-            <form method="POST" action="{% url 'checkout' %}">
+            <form id="payment-form" method="POST" action="{% url 'checkout' %}">
                 {% csrf_token %}
                 {{ order_form|crispy }}
                 

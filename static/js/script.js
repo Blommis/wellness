@@ -82,4 +82,39 @@ document.addEventListener('DOMContentLoaded', function(){
             errorDiv.textContent = "";
         }
     });
+
+ const form = document.getElementById("payment-form");
+ const submitButton = form.querySelector("button");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    
+    card.update({ 'disabled': true });
+    submitButton.disabled = true;
+
+    stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: card,
+      }
+    }).then(function (result) {
+
+      if (result.error) {
+        const errorDiv = document.getElementById("card-errors");
+        errorDiv.innerHTML = `
+          <span class="icon" role="alert">
+            <i class="fas fa-times"></i>
+          </span>
+          <span>${result.error.message}</span>
+        `;
+        card.update({ 'disabled': false });
+        submitButton.disabled = false;
+      } else {
+        if (result.paymentIntent.status === "succeeded") {
+          form.submit();
+        }
+      }
+    });
+  });
 });
+
