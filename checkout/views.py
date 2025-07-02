@@ -28,12 +28,6 @@ def checkout(request):
 
         if order_form.is_valid():
             order = order_form.save()
-            order.order_total = 0
-            order.delivery_cost = 0
-            order.grand_total = 0
-            order.save()
-
-            total = 0
 
             for item_key, item_data in bag.items():
                 try:
@@ -54,18 +48,14 @@ def checkout(request):
                 product = get_object_or_404(model, pk=object_id)
                 content_type = ContentType.objects.get_for_model(model)
 
-                OrderLineItem.objects.create(
+                lineitem = OrderLineItem(
                     order=order,
                     content_type=content_type,
                     object_id=product.id,
                     quantity=quantity,
                 )
-                total += product.price * quantity
-
-            order.order_total = total
-            order.grand_total = total
-            order.save()
-
+                lineitem.save()
+                
             return redirect('checkout_success', order_number=order.order_number)
         else: 
             messages.error(request, "There was an error with your form. Please check your details.")
