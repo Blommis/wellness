@@ -1,8 +1,10 @@
+from decimal import Decimal
 import uuid
 from django.db.models import Sum
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+
 
 # Create your models here.
 
@@ -34,7 +36,7 @@ class Order(models.Model):
         self.order_total = self.lineitems.aggregate(
             Sum('lineitem_total')
         )['lineitem_total__sum'] or 0
-        self.delivery_cost = 7.90  # Order cost in euro
+        self.delivery_cost = Decimal('7.90')  # Order cost in euro
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
 
