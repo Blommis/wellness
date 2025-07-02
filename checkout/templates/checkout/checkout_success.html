@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="checkout_Success-page">
+  <h2>Thank you for your order!</h2>
+  <p>Your order number is <strong>{{ order.order_number }}</strong>.</p>
+    <ul>
+    {% for item in order.lineitems.all %}
+    <li> {% if item.product.image %}
+         <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-width: 60px; max-height: 60px;">
+         {% endif %}
+    </li>
+      <li>
+        {{ item.product.name }} × {{ item.quantity }}
+      </li>
+    {% endfor %}
+      <li>
+      <strong>Items Total:</strong>
+      €{{ order.order_total|floatformat:2 }} <span> <strong>Delivery:</strong>€{{ order.delivery_cost|floatformat:2 }}</span>
+    </li>
+     <li>
+      <strong>Grand Total:</strong>
+      <span><strong>€{{ order.grand_total|floatformat:2 }}</strong></span>
+    </li>
+  </ul>
+  <p>You’ll receive a confirmation email shortly to <strong>{{ order.email }}</strong>.</p>
+  <a href="{% url 'home' %}" class="btn btn-primary mt-3">Back to Home</a>
+</div>
+{% endblock %}
