@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm
 from django.contrib import messages
+from checkout.models import Order
 # Create your views here.
 
 
@@ -9,6 +10,7 @@ from django.contrib import messages
 def profile(request):
     """ Shows the users profile and update detail information """
     profile = request.user.userprofile
+    orders = profile.orders.all()
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)
@@ -20,6 +22,7 @@ def profile(request):
     
     context = {
         'form': form,
+        'orders': orders,
     }
 
     template = 'profiles/profile.html'
