@@ -366,6 +366,18 @@ main {
   padding-top: 200px !important;
 }
 
+/*INput fields in checkout*/
+select, 
+select option {
+    color: #000000;
+}
+
+select:invalid,
+select option[value=""] {
+    color: #aab7c4 !important;
+     padding-bottom: 3px;
+}
+
 
 /*Took from stripe docs*/
 .StripeElement,
