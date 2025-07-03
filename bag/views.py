@@ -83,8 +83,8 @@ def remove_from_bag(request, item_key):
     if item_key in bag:
         del bag[item_key]
         request.session['bag'] = bag
-        messages.success(request, "Item removed from your bag.")
+        messages.success(request, 'Item removed from your bag.', extra_tags='bag')
     else:
-        messages.error(request, "Item not found in your bag.")
+        messages.error(request, 'Item not found in your bag.', extra_tags='bag')
 
     return redirect('view_bag')
