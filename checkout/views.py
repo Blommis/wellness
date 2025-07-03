@@ -7,6 +7,7 @@ import stripe
 from .models import Order, OrderLineItem
 from products.models import Supplement, MealPlan
 from django.contrib.contenttypes.models import ContentType
+from profiles.models import UserProfile
 
 # Create your views here.
 
@@ -65,13 +66,31 @@ def checkout(request):
         bag_data = bag_contents(request)
         total = bag_data['grand_total']
         stripe_total = round(total * 100)
-    
+        
+        if request.user.is_authenticated:
+            try:
+                profile = request.user.userprofile
+                initial_data = {
+                    'email': request.user.email,
+                    'phone_number': profile.default_phone_number,
+                    'country': profile.default_country,
+                    'postcode': profile.default_postcode,
+                    'town_or_city': profile.default_town_or_city,
+                    'street_address1': profile.default_street_address1,
+                    'street_address2': profile.default_street_address2,
+                    'county': profile.default_county,
+                }
+                order_form = OrderForm(initial=initial_data)
+
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
+
     intent = stripe.PaymentIntent.create(
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY,
     )
-
-    order_form = OrderForm()
 
     template = 'checkout/checkout.html'
     context = {
