@@ -53,7 +53,10 @@ main {
     font-size: 0.9rem;
 }
 /*NAVBAR ENDS*/
-
+/*Accounts*/
+#account-page{
+  padding-top: 100px !important;
+}
 /*HERO SECTION*/ 
  #hero{
   background-image: url("/static/images/twofriendssmiling.webp");
@@ -551,5 +554,7 @@ ul li a {
 #order-container{
   padding-top: 150px !important;
 }
-
+#account-page{
+  padding-top: 150px !important;
+}
 }

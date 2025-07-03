@@ -53,7 +53,10 @@ main {
     font-size: 0.9rem;
 }
 /*NAVBAR ENDS*/
-
+/*Accounts*/
+#account-page{
+  padding-top: 100px !important;
+}
 /*HERO SECTION*/ 
  #hero{
   background-image: url("/static/images/twofriendssmiling.webp");
@@ -366,10 +369,7 @@ main {
   padding-top: 200px !important;
 }
 
-select.form-control {
-  line-height: 1.5;
-  padding-bottom: 15px;  
-}
+/*INput fields in checkout*/
 select, 
 select option {
     color: #000000;
@@ -554,5 +554,7 @@ ul li a {
 #order-container{
   padding-top: 150px !important;
 }
-
+#account-page{
+  padding-top: 150px !important;
+}
 }

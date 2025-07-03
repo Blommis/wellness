@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">My Profile</h2>
+
+  <div class="card p-4 shadow-sm">
+    <h5 class="mb-3">Account Info</h5>
+    <p><strong>Username:</strong> {{ request.user.username }}</p>
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+
+    <hr>
+
+    <h5 class="mb-3">Default Shipping Details</h5>
+    <p><strong>Phone:</strong> {{ request.user.userprofile.default_phone_number }}</p>
+    <p><strong>Country:</strong> {{ request.user.userprofile.default_country }}</p>
+    <p><strong>City:</strong> {{ request.user.userprofile.default_town_or_city }}</p>
+    <p><strong>Postcode:</strong> {{ request.user.userprofile.default_postcode }}</p>
+    <p><strong>Street 1:</strong> {{ request.user.userprofile.default_street_address1 }}</p>
+    <p><strong>Street 2:</strong> {{ request.user.userprofile.default_street_address2 }}</p>
+    <p><strong>County:</strong> {{ request.user.userprofile.default_county }}</p>
+  </div>
+
+  <div class="mt-4">
+    <a href="{% url 'account_logout' %}" class="btn btn-outline-danger">Log Out</a>
+  </div>
+</div>
+{% endblock %}
