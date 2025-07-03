@@ -54,7 +54,12 @@ main {
 }
 /*NAVBAR ENDS*/
 /*Accounts*/
+
 #account-page{
+  padding-top: 100px !important; /*login.html*/
+}
+
+#profile-page{
   padding-top: 100px !important;
 }
 /*HERO SECTION*/ 
@@ -556,5 +561,20 @@ ul li a {
 }
 #account-page{
   padding-top: 150px !important;
+}
+#profile-page{
+  padding-top: 150px !important;
+}
+input.form-control, select.form-control, textarea.form-control {
+  max-width: 50% !important;
+  width: 50% !important;
+}
+select {
+  max-width: 50% !important;
+  width: 50% !important;
+}
+#profile-page{
+  max-width: 50% !important;
+  width: 50% !important;
 }
 }
