@@ -565,14 +565,7 @@ ul li a {
 #profile-page{
   padding-top: 150px !important;
 }
-input.form-control, select.form-control, textarea.form-control {
-  max-width: 50% !important;
-  width: 50% !important;
-}
-select {
-  max-width: 50% !important;
-  width: 50% !important;
-}
+
 #profile-page{
   max-width: 50% !important;
   width: 50% !important;
