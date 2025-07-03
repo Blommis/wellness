@@ -28,7 +28,12 @@ def checkout(request):
         order_form = OrderForm(form_data)
 
         if order_form.is_valid():
-            order = order_form.save()
+            order = order_form.save(commit=False)
+
+            if request.user.is_authenticated:
+                order.user_profile = request.user.userprofile
+                
+            order.save()
 
             for item_key, item_data in bag.items():
                 try:
@@ -68,6 +73,7 @@ def checkout(request):
         stripe_total = round(total * 100)
         
         if request.user.is_authenticated:
+
             try:
                 profile = request.user.userprofile
                 initial_data = {
