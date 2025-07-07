@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  <h1>Recipes</h1>
-  <p>Here you can see breakfast, lunch and snacks.</p>
+<div class="container py-5" id="recipes-container">
+  <h1 class="mb-4 text-center">Recipes</h1>
+  <p class="text-center">Explore healthy ideas for breakfast, lunch, and snacks.</p>
+
+  <!-- Breakfast Section -->
+  <h2 class="mt-5 text-center">Breakfast</h2>
+  <div class="row">
+    {% for breakfast in breakfasts %}
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 shadow">
+        <img src="{{ breakfast.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ breakfast.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ breakfast.name }}</h5>
+          <p class="card-text">{{ breakfast.short_description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
