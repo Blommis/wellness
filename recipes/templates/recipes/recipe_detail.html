@@ -31,6 +31,36 @@
      {% endfor %}
 </ol>
 
+<hr>
+<h4 class="mt-4">Reviews</h4>
+
+{% if average_rating %}
+<p><strong>Average rating:</strong> {{ average_rating|floatformat:1 }} / 5</p>
+{% endif %}
+
+{% for review in reviews %}
+  <div class="mb-3 border-bottom pb-2">
+    <strong>{{ review.user.username }}</strong> - {{ review.rating }} ★
+    <p class="mb-1">{{ review.comment }}</p>
+    <small class="text-muted">{{ review.created_at|date:"Y-m-d H:i" }}</small>
+  </div>
+{% empty %}
+  <p>No reviews yet.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+  <hr>
+  <h5>Leave a review</h5>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-dark">Submit Review</button>
+  </form>
+{% else %}
+  <p><a href="{% url 'account_login' %}">Log in</a> to leave a review.</p>
+{% endif %}
+
+
       <div class="text-center mt-4">
         <a href="{% url 'recipes' %}" class="btn btn-outline-dark">← Back to Recipes</a>
       </div>
