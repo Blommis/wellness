@@ -36,5 +36,19 @@
   </div>
   {% endfor %}
 </div>
+<!-- Snacks Section -->
+<h2 class="mt-5 text-center">Snacks</h2>
+<div class="row">
+  {% for snack in snacks %}
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100 shadow">
+      <img src="{{ snack.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ snack.name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ snack.name }}</h5>
+        <p class="card-text">{{ snack.short_description }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}
