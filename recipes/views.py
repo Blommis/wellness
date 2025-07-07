@@ -55,3 +55,17 @@ def recipe_detail(request, category, pk):
         'average_rating': average_rating,
         'form': form,
     })
+
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    if review.user != review.user:
+        return redirect('recipes')
+    
+    category = review.content_type.model
+    object_id = review.object_id
+
+    review.delete()
+
+    return redirect('recipe_detail', category=category, pk=object_id)
