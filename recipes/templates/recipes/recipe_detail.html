@@ -43,6 +43,13 @@
     <strong>{{ review.user.username }}</strong> - {{ review.rating }} ★
     <p class="mb-1">{{ review.comment }}</p>
     <small class="text-muted">{{ review.created_at|date:"Y-m-d H:i" }}</small>
+
+       {% if review.user == user %}
+      <form method="POST" action="{% url 'delete_review' review.id %}" class="mt-2 d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+      </form>
+    {% endif %}
   </div>
 {% empty %}
   <p>No reviews yet.</p>
@@ -51,9 +58,16 @@
 {% if user.is_authenticated %}
   <hr>
   <h5>Leave a review</h5>
-  <form method="POST">
+  <form method="POST" class="review-form">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="mb-3">
+  <label for="{{ form.rating.id_for_label }}" class="form-label">Rating</label>
+  {{ form.rating }}
+</div>
+<div class="mb-3">
+  <label for="{{ form.comment.id_for_label }}" class="form-label">Comment</label>
+  {{ form.comment }}
+</div>
     <button type="submit" class="btn btn-dark">Submit Review</button>
   </form>
 {% else %}
