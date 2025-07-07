@@ -9,9 +9,9 @@ from django.contrib.auth.decorators import login_required
 
 
 def recipes(request):
-    breakfasts = Breakfast.objects.all()
-    lunches = Lunch.objects.all()
-    snacks = Snack.objects.all()
+    breakfasts = annotate_with_review_count(Breakfast.objects.all(), Breakfast)
+    lunches = annotate_with_review_count(Lunch.objects.all(), Lunch)
+    snacks = annotate_with_review_count(Snack.objects.all(), Snack)
 
     context = {
         'breakfasts': breakfasts,
@@ -19,6 +19,19 @@ def recipes(request):
         'snacks': snacks,
     }
     return render(request, 'recipes/recipes.html', context)
+
+
+def annotate_with_review_count(queryset, model):
+    """
+    Adds a 'review_count' attribute to each object to indicate how many reviews
+    it has. Useful for displaying review info in recipe listings.
+    """
+    content_type = ContentType.objects.get_for_model(model)
+    for item in queryset:
+        item.review_count = Review.objects.filter(
+            content_type=content_type, object_id=item.pk
+        ).count()
+    return queryset
 
 
 def recipe_detail(request, category, pk):
