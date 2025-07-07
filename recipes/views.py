@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Breakfast, Lunch, Snack
 # Create your views here.
 
@@ -14,3 +14,19 @@ def recipes(request):
         'snacks': snacks,
     }
     return render(request, 'recipes/recipes.html', context)
+
+
+def recipe_detail(request, category, pk):
+    model_map = {
+        'breakfast': Breakfast,
+        'lunch': Lunch,
+        'snack': Snack,
+    }
+    model = model_map.get(category)
+    
+    recipe = get_object_or_404(model, pk=pk)
+
+    return render(request, 'recipes/recipe_detail.html', {
+        'recipe': recipe,
+        'category': category.capitalize(),
+    })
