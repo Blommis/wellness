@@ -419,9 +419,12 @@ select option[value=""] {
     position: relative;
     right: .5rem;
 }
+/*CHECKOUT ENDS*/
 
-
-
+/*RECIPES PAGE*/
+#recipes-container{
+  padding-top: 150px !important;
+}
 
 
 /*FOOTER*/
