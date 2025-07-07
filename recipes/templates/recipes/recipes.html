@@ -20,5 +20,21 @@
     </div>
     {% endfor %}
   </div>
+
+  <!-- Lunch Section -->
+<h2 class="mt-5 text-center">Lunch</h2>
+<div class="row">
+  {% for lunch in lunches %}
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100 shadow">
+      <img src="{{ lunch.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ lunch.name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ lunch.name }}</h5>
+        <p class="card-text">{{ lunch.short_description }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 </div>
 {% endblock %}
