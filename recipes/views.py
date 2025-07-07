@@ -1,5 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Breakfast, Lunch, Snack
+from django.db import models
+from reviews.forms import ReviewForm
+from reviews.models import Review
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -26,7 +31,27 @@ def recipe_detail(request, category, pk):
     
     recipe = get_object_or_404(model, pk=pk)
 
+    content_type = ContentType.objects.get_for_model(model)
+    reviews = Review.objects.filter(content_type=content_type, object_id=pk)
+
+    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg']
+
+    if request.method == 'POST' and request.user.is_authenticated:
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.content_type = content_type
+            review.object_id = pk
+            review.save()
+            return redirect('recipe_detail', category=category, pk=pk)
+    else:
+        form = ReviewForm()
+
     return render(request, 'recipes/recipe_detail.html', {
         'recipe': recipe,
         'category': category.capitalize(),
+        'reviews': reviews,
+        'average_rating': average_rating,
+        'form': form,
     })
