@@ -7,7 +7,11 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ['rating', 'comment']
         widgets = {
-            'rating': forms.Select(choices=[(i, f"{i} stars") for i in range(1, 6)]),
-            'comment': forms.Textarea(attrs={'rows': 4}),
+            'rating': forms.Select(
+                choices=[(i, f"{i} stars") for i in range(1, 6)],
+                attrs={'class': 'form-select'}
+            ),
+            'comment': forms.Textarea(
+                attrs={'rows': 4, 'class': 'form-control', 'placeholder': 'Write your comment here...'}
+            ),
         }
-        
