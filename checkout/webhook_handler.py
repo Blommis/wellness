@@ -26,6 +26,7 @@ class StripeWH_Handler:
     
     def handle_payment_intent_succeeded(self, event):
         """Handle the payment_intent.succeeded webhook from Stripe"""
+        """ This function is taken inspiration from Boutinque ado """
         stripe.api_key = settings.STRIPE_SECRET_KEY
         intent = event.data.object
         pid = intent.id
@@ -34,10 +35,12 @@ class StripeWH_Handler:
         save_info = intent.metadata.get('save_info', False)
         username = intent.metadata.get('username', 'AnonymousUser')
 
+        """ Retrieve charge details for billing info """
         charge = stripe.Charge.retrieve(intent.latest_charge)
         billing_details = charge.billing_details
         shipping_details = intent.shipping
         
+        """ Clean empty strings from shipping address """
         if not shipping_details or not shipping_details.address:
             shipping_details = None
             address = {}
