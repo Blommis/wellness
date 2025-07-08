@@ -8,6 +8,7 @@ from .models import Order, OrderLineItem
 from products.models import Supplement, MealPlan
 from django.contrib.contenttypes.models import ContentType
 from profiles.models import UserProfile
+import json
 
 # Create your views here.
 
@@ -96,6 +97,11 @@ def checkout(request):
     intent = stripe.PaymentIntent.create(
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY,
+        metadata={
+            'bag': json.dumps(bag),
+            'username': request.user.username if request.user.is_authenticated else 'AnonymousUser',
+            'save_info': request.POST.get('save_info', False),
+        }
     )
 
     template = 'checkout/checkout.html'
