@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from .models import Order, OrderLineItem
 from products.models import Supplement, MealPlan
 from profiles.models import UserProfile
@@ -15,6 +16,27 @@ class StripeWH_Handler:
 
     def __init__(self, request):
         self.request = request
+
+    def _send_confirmation_email(self, order):
+        print("SENDING EMAIL TO:", order.email)
+        
+        """Send the user a confirmation email"""
+        cust_email = order.email
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_subject.txt',
+            {'order': order}
+        )
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.txt',
+            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL}
+        )
+
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email]
+        )
         
     def handle_event(self, event):
         """
@@ -37,35 +59,26 @@ class StripeWH_Handler:
 
         """ Retrieve charge details for billing info """
         charge = stripe.Charge.retrieve(intent.latest_charge)
-        billing_details = charge.billing_details
-        shipping_details = intent.shipping
+
+        email = intent.metadata.get('email', 'noemail@placeholder.com')
+        full_name = intent.metadata.get('full_name', '')
+        phone = intent.metadata.get('phone', '')
+        country = intent.metadata.get('country', '')
+        postcode = intent.metadata.get('postcode', '')
+        city = intent.metadata.get('town_or_city', '')
+        line1 = intent.metadata.get('street_address1', '')
+        line2 = intent.metadata.get('street_address2', '')
+        state = intent.metadata.get('county', '')
         
         """ Clean empty strings from shipping address """
-        if not shipping_details or not shipping_details.address:
-            shipping_details = None
-            address = {}
-        else:
-            for field, value in shipping_details.address.items():
-                if value == "":
-                    shipping_details.address[field] = None
-            address = shipping_details.address
-
-        full_name = shipping_details.name if shipping_details else None
-        phone = shipping_details.phone if shipping_details else None
-        country = address.get('country')
-        postcode = address.get('postal_code')
-        city = address.get('city')
-        line1 = address.get('line1')
-        line2 = address.get('line2')
-        state = address.get('state')
-
+    
         grand_total = round(charge.amount / 100, 2)
 
         profile = None
         if username != 'AnonymousUser':
             try:
                 profile = UserProfile.objects.get(user__username=username)
-                if save_info and shipping_details and shipping_details.address:
+                if save_info and profile:
                     profile.default_phone_number = phone
                     profile.default_country = country
                     profile.default_postcode = postcode
@@ -99,6 +112,7 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_exists:
+            self._send_confirmation_email(order)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
@@ -108,7 +122,7 @@ class StripeWH_Handler:
                 order = Order.objects.create(
                     full_name=full_name,
                     user_profile=profile,
-                    email=billing_details.email,
+                    email=email,
                     phone_number=phone,
                     country=country,
                     postcode=postcode,
@@ -142,14 +156,16 @@ class StripeWH_Handler:
                         object_id=product.id,
                         quantity=quantity,
                     )
+
             except Exception as e:
                 if order:
                     order.delete()
-                    return HttpResponse(
-                        content=f'Webhook received: {event["type"]} | ERROR: {str(e)}',
-                        status=500
-                    )
-                    
+                return HttpResponse(
+                    content=f'Webhook received: {event["type"]} | ERROR: {str(e)}',
+                    status=500
+                )
+            
+            self._send_confirmation_email(order)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
                 status=200)
