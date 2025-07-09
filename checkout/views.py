@@ -101,6 +101,15 @@ def checkout(request):
             'bag': json.dumps(bag),
             'username': request.user.username if request.user.is_authenticated else 'AnonymousUser',
             'save_info': request.POST.get('save_info', False),
+            'email': request.POST.get('email'),
+            'full_name': request.POST.get('full_name'),
+            'phone': request.POST.get('phone_number'),
+            'country': request.POST.get('country'),
+            'postcode': request.POST.get('postcode'),
+            'town_or_city': request.POST.get('town_or_city'),
+            'street_address1': request.POST.get('street_address1'),
+            'street_address2': request.POST.get('street_address2'),
+            'county': request.POST.get('county'),
         }
     )
 
