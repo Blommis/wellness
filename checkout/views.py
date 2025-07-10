@@ -25,11 +25,26 @@ def checkout(request):
         return redirect(reverse('home'))
     
     if request.method == 'POST':
-        form_data = request.POST
+        form_data = {
+            'full_name': request.POST['full_name'],
+            'email': request.POST['email'],
+            'phone_number': request.POST['phone_number'],
+            'country': request.POST['country'],
+            'postcode': request.POST['postcode'],
+            'town_or_city': request.POST['town_or_city'],
+            'street_address1': request.POST['street_address1'],
+            'street_address2': request.POST['street_address2'],
+            'county': request.POST['county'],
+        }
+
+        
         order_form = OrderForm(form_data)
 
         if order_form.is_valid():
             order = order_form.save(commit=False)
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_pid = pid
+            order.original_bag = json.dumps(bag)
 
             if request.user.is_authenticated:
                 order.user_profile = request.user.userprofile
@@ -73,12 +88,14 @@ def checkout(request):
         total = bag_data['grand_total']
         stripe_total = round(total * 100)
         
+        initial_data = {}
         if request.user.is_authenticated:
 
             try:
                 profile = request.user.userprofile
                 initial_data = {
                     'email': request.user.email,
+                    'full_name': request.user.get_full_name(),
                     'phone_number': profile.default_phone_number,
                     'country': profile.default_country,
                     'postcode': profile.default_postcode,
@@ -87,31 +104,21 @@ def checkout(request):
                     'street_address2': profile.default_street_address2,
                     'county': profile.default_county,
                 }
-                order_form = OrderForm(initial=initial_data)
-
             except UserProfile.DoesNotExist:
-                order_form = OrderForm()
-        else:
-            order_form = OrderForm()
+                pass
+        order_form = OrderForm(initial=initial_data)
 
-    intent = stripe.PaymentIntent.create(
-        amount=stripe_total,
-        currency=settings.STRIPE_CURRENCY,
-        metadata={
+        metadata = {
             'bag': json.dumps(bag),
             'username': request.user.username if request.user.is_authenticated else 'AnonymousUser',
-            'save_info': request.POST.get('save_info', False),
-            'email': request.POST.get('email'),
-            'full_name': request.POST.get('full_name'),
-            'phone': request.POST.get('phone_number'),
-            'country': request.POST.get('country'),
-            'postcode': request.POST.get('postcode'),
-            'town_or_city': request.POST.get('town_or_city'),
-            'street_address1': request.POST.get('street_address1'),
-            'street_address2': request.POST.get('street_address2'),
-            'county': request.POST.get('county'),
+            'save_info': False,
         }
-    )
+
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY,
+            metadata=metadata
+        )
 
     template = 'checkout/checkout.html'
     context = {
