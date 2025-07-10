@@ -56,19 +56,20 @@ class StripeWH_Handler:
         bag_data = json.loads(bag)
         save_info = intent.metadata.get('save_info', False)
         username = intent.metadata.get('username', 'AnonymousUser')
-
-        """ Retrieve charge details for billing info """
         charge = stripe.Charge.retrieve(intent.latest_charge)
-
-        email = intent.metadata.get('email', 'noemail@placeholder.com')
-        full_name = intent.metadata.get('full_name', '')
-        phone = intent.metadata.get('phone', '')
-        country = intent.metadata.get('country', '')
-        postcode = intent.metadata.get('postcode', '')
-        city = intent.metadata.get('town_or_city', '')
-        line1 = intent.metadata.get('street_address1', '')
-        line2 = intent.metadata.get('street_address2', '')
-        state = intent.metadata.get('county', '')
+        billing_details = charge.billing_details
+        shipping_details = intent.shipping
+        """ Retrieve charge details for billing info """
+    
+        email = billing_details.email
+        full_name = shipping_details.name
+        phone = shipping_details.phone
+        country = shipping_details.address.country
+        postcode = shipping_details.address.postal_code
+        city = shipping_details.address.city
+        line1 = shipping_details.address.line1
+        line2 = shipping_details.address.line2
+        state = shipping_details.address.state
         
         """ Clean empty strings from shipping address """
     
@@ -124,12 +125,12 @@ class StripeWH_Handler:
                     user_profile=profile,
                     email=email,
                     phone_number=phone,
-                    country=country,
-                    postcode=postcode,
-                    town_or_city=city,
-                    street_address1=line1,
-                    street_address2=line2,
-                    county=state,
+                    country=shipping_details.address.country,
+                    postcode=shipping_details.address.postal_code,
+                    town_or_city=shipping_details.address.city,
+                    street_address1=shipping_details.address.line1,
+                    street_address2=shipping_details.address.line2,
+                    county=shipping_details.address.state,
                     grand_total=grand_total,
                     original_bag=bag,
                     stripe_pid=pid,
