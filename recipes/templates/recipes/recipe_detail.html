@@ -45,7 +45,7 @@
     <small class="text-muted">{{ review.created_at|date:"Y-m-d H:i" }}</small>
 
        {% if review.user == user %}
-      <form method="POST" action="{% url 'delete_review' review.id %}" class="mt-2 d-inline">
+      <form method="POST" action="{% url 'recipes:delete_review' review.id %}" class="mt-2 d-inline">
         {% csrf_token %}
         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
       </form>
@@ -76,7 +76,7 @@
 
 
       <div class="text-center mt-4">
-        <a href="{% url 'recipes' %}" class="btn btn-outline-dark">← Back to Recipes</a>
+        <a href="{% url 'recipes:recipes' %}" class="btn btn-outline-dark">← Back to Recipes</a>
       </div>
     </div>
   </div>

@@ -10,7 +10,7 @@
   <div class="row">
     {% for breakfast in breakfasts %}
     <div class="col-md-6 col-lg-4 mb-4">
-    <a href="{% url 'recipe_detail' 'breakfast' breakfast.pk %}" class="text-decoration-none text-dark">
+    <a href="{% url 'recipes:recipe_detail' category='breakfast' pk=breakfast.id %}" class="text-decoration-none text-dark">
       <div class="card h-100 shadow">
         <img src="{{ breakfast.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ breakfast.name }}">
         <div class="card-body">
@@ -31,7 +31,7 @@
 <div class="row">
   {% for lunch in lunches %}
   <div class="col-md-6 col-lg-4 mb-4">
-    <a href="{% url 'recipe_detail' 'lunch' lunch.pk %}" class="text-decoration-none text-dark">
+    <a href="{% url 'recipes:recipe_detail' category='lunch' pk=lunch.id %}" class="text-decoration-none text-dark">
     <div class="card h-100 shadow">
       <img src="{{ lunch.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ lunch.name }}">
       <div class="card-body">
@@ -48,7 +48,7 @@
 <div class="row">
   {% for snack in snacks %}
   <div class="col-md-6 col-lg-4 mb-4">
-    <a href="{% url 'recipe_detail' 'snack' snack.pk %}" class="text-decoration-none text-dark">
+    <a href="{% url 'recipes:recipe_detail' category='snack' pk=snack.id %}" class="text-decoration-none text-dark">
     <div class="card h-100 shadow">
       <img src="{{ snack.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ snack.name }}">
       <div class="card-body">

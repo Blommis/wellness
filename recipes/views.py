@@ -57,7 +57,7 @@ def recipe_detail(request, category, pk):
             review.content_type = content_type
             review.object_id = pk
             review.save()
-            return redirect('recipe_detail', category=category, pk=pk)
+            return redirect('recipes:recipe_detail', category=category, pk=pk)
     else:
         form = ReviewForm()
 
@@ -74,11 +74,11 @@ def recipe_detail(request, category, pk):
 def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     if review.user != review.user:
-        return redirect('recipes')
+        return redirect('recipes:recipes')
     
     category = review.content_type.model
     object_id = review.object_id
 
     review.delete()
 
-    return redirect('recipe_detail', category=category, pk=object_id)
+    return redirect('recipes:recipe_detail', category=category, pk=object_id)
