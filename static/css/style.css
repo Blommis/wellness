@@ -52,6 +52,9 @@ main {
 .desktop-search-form input {
     font-size: 0.9rem;
 }
+#search-page{
+  padding-top: 150px !important;
+}
 /*NAVBAR ENDS*/
 /*Accounts*/
 
@@ -606,6 +609,9 @@ ul li a {
 .gallery-masonry {
     column-count: 3;
   }
+}
+#search-page{
+  padding-top: 150px !important;
 }
 
 

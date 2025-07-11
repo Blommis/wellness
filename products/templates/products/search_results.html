@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5" id ="search-page">
+  <h2 class="mb-4">Search Results for "{{ query }}"</h2>
+
+  {% if supplements %}
+    <h4>Supplements</h4>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
+      {% for item in supplements %}
+        <div class="col">
+          <div class="card h-100">
+            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.name }}</h5>
+              <p class="card-text">{{ item.description|truncatewords:15 }}</p>
+              <a href="{% url 'products:supplement_detail' item.id %}" class="btn btn-outline-dark btn-sm">View more</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if mealplans %}
+    <h4>Meal Plans</h4>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
+      {% for item in mealplans %}
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.name }}</h5>
+              <p class="card-text">{{ item.description|truncatewords:15 }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if breakfast_recipes %}
+    <h4>Breakfast Recipes</h4>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
+      {% for recipe in breakfast_recipes %}
+        <div class="col">
+          <div class="card h-100">
+            <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ recipe.name }}</h5>
+              <p class="card-text">{{ recipe.short_description|truncatewords:15 }}</p>
+              <a href="{% url 'recipes:recipe_detail' category='breakfast' pk=recipe.id %}" class="btn btn-outline-dark btn-sm">View more</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if lunch_recipes %}
+    <h4>Lunch Recipes</h4>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
+      {% for recipe in lunch_recipes %}
+        <div class="col">
+          <div class="card h-100">
+            <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ recipe.name }}</h5>
+              <p class="card-text">{{ recipe.short_description|truncatewords:15 }}</p>
+              <a href="{% url 'recipes:recipe_detail' category='lunch' pk=recipe.id %}" class="btn btn-outline-dark btn-sm">View more</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if snack_recipes %}
+    <h4>Snack Recipes</h4>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
+      {% for recipe in snack_recipes %}
+        <div class="col">
+          <div class="card h-100">
+            <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ recipe.name }}</h5>
+              <p class="card-text">{{ recipe.short_description|truncatewords:15 }}</p>
+              <a href="{% url 'recipes:recipe_detail' category='snack' pk=recipe.id %}" class="btn btn-outline-dark btn-sm">View more</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if not supplements and not mealplans and not breakfast_recipes and not lunch_recipes and not snack_recipes %}
+    <p>No results found for "{{ query }}".</p>
+  {% endif %}
+</div>
+{% endblock %}
