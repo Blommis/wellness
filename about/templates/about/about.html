@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5" id="about-container">
+  <h1 class="text-center mb-4">Gallery</h1>
+  <div class="gallery-masonry">
+    {% for image in images %}
+      <img src="{{ image.image.url }}" alt="Gallery image">
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
