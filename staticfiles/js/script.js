@@ -58,61 +58,78 @@ document.addEventListener("DOMContentLoaded", function () {
 // Stripe checkout
 
 document.addEventListener('DOMContentLoaded', function(){
-  const stripePublicKey = document.getElementById('id_stripe_public_key').textContent.trim();
-  const clientSecret = document.getElementById('id_client_secret').value.trim();
-  const stripe = Stripe(stripePublicKey);
-  const elements = stripe.elements();
+  const publicKeyElement = document.getElementById('id_stripe_public_key');
+  const clientSecretElement = document.getElementById('id_client_secret');
 
-  const style = {
-    base: {
-      color: "#000",
-      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-      fontSize: "16px",
-      "::placeholder": { color: "#aab7c4" }
-    },
-    invalid: {
-      color: "#fa755a",
-      iconColor: "#fa755a"
-    }
-  };
-  const card = elements.create("card", { style: style });
-  card.mount("#card-element");
+  if (publicKeyElement && clientSecretElement){
+    const stripePublicKey = publicKeyElement.textContent.trim();
+    const clientSecret = clientSecretElement.value.trim();
+    const stripe = Stripe(stripePublicKey);
+    const elements = stripe.elements();
 
-   card.on("change", function (event) {
-        const errorDiv = document.getElementById("card-errors");
-        if (event.error) {
-            errorDiv.textContent = event.error.message;
-        } else {
-            errorDiv.textContent = "";
-        }
-    });
+    const style = {
+      base: {
+        color: "#000",
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: "16px",
+        "::placeholder": { color: "#aab7c4" }
+      },
+      invalid: {
+        color: "#fa755a",
+        iconColor: "#fa755a"
+      }
+    };
+    const card = elements.create("card", { style: style });
+    card.mount("#card-element");
 
- const form = document.getElementById("payment-form");
- const submitButton = form.querySelector("button");
+    card.on("change", function (event) {
+          const errorDiv = document.getElementById("card-errors");
+          if (event.error) {
+              errorDiv.textContent = event.error.message;
+          } else {
+              errorDiv.textContent = "";
+          }
+      });
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  const form = document.getElementById("payment-form");
+  const submitButton = form.querySelector("button");
 
-    
-    card.update({ 'disabled': true });
-    submitButton.disabled = true;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const fullName = document.querySelector('input[name="full_name"]').value;
-    const email = document.querySelector('input[name="email"]').value;
-    const phone = document.querySelector('input[name="phone_number"]').value;
-    const addressLine1 = document.querySelector('input[name="street_address1"]').value;
-    const addressLine2 = document.querySelector('input[name="street_address2"]').value;
-    const city = document.querySelector('input[name="town_or_city"]').value;
-    const state = document.querySelector('input[name="county"]').value;
-    const postalCode = document.querySelector('input[name="postcode"]').value;
-    const country = document.querySelector('select[name="country"]').value;
+      
+      card.update({ 'disabled': true });
+      submitButton.disabled = true;
 
-    stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: card,
-        billing_details: {
+      const fullName = document.querySelector('input[name="full_name"]').value;
+      const email = document.querySelector('input[name="email"]').value;
+      const phone = document.querySelector('input[name="phone_number"]').value;
+      const addressLine1 = document.querySelector('input[name="street_address1"]').value;
+      const addressLine2 = document.querySelector('input[name="street_address2"]').value;
+      const city = document.querySelector('input[name="town_or_city"]').value;
+      const state = document.querySelector('input[name="county"]').value;
+      const postalCode = document.querySelector('input[name="postcode"]').value;
+      const country = document.querySelector('select[name="country"]').value;
+
+      stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: fullName,
+            email: email,
+            phone: phone,
+            address: {
+              line1: addressLine1,
+              line2: addressLine2,
+              city: city,
+              state: state,
+              postal_code: postalCode,
+              country: country,
+            }
+          }
+        },
+        shipping: {
           name: fullName,
-          email: email,
           phone: phone,
           address: {
             line1: addressLine1,
@@ -123,37 +140,25 @@ document.addEventListener('DOMContentLoaded', function(){
             country: country,
           }
         }
-      },
-      shipping: {
-        name: fullName,
-        phone: phone,
-        address: {
-          line1: addressLine1,
-          line2: addressLine2,
-          city: city,
-          state: state,
-          postal_code: postalCode,
-          country: country,
+    }).then(function (result) {
+
+      if (result.error) {
+        const errorDiv = document.getElementById("card-errors");
+        errorDiv.innerHTML = `
+          <span class="icon" role="alert">
+            <i class="fas fa-times"></i>
+          </span>
+          <span>${result.error.message}</span>
+        `;
+        card.update({ 'disabled': false });
+        submitButton.disabled = false;
+      } else {
+        if (result.paymentIntent.status === "succeeded") {
+          form.submit();
         }
       }
-   }).then(function (result) {
-
-    if (result.error) {
-      const errorDiv = document.getElementById("card-errors");
-      errorDiv.innerHTML = `
-        <span class="icon" role="alert">
-          <i class="fas fa-times"></i>
-        </span>
-        <span>${result.error.message}</span>
-      `;
-      card.update({ 'disabled': false });
-      submitButton.disabled = false;
-    } else {
-      if (result.paymentIntent.status === "succeeded") {
-        form.submit();
-      }
-    }
-  });
-  });
+    });
+    });
+  }
 });
 
