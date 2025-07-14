@@ -30,22 +30,26 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnLeft = document.querySelector(".carousel-btn.left");
   const btnRight = document.querySelector(".carousel-btn.right");
 
-  let currentIndex = 0;
+  if (track && btnLeft && btnRight && slides.length > 0){
+    let currentIndex = 0;
 
-  function updateCarousel() {
-    const offset = -currentIndex * 100;
-    track.style.transform = `translateX(${offset}%)`;
+   function updateCarousel() {
+     const offset = -currentIndex * 100;
+     track.style.transform = `translateX(${offset}%)`;
+   }
+
+   btnLeft.addEventListener("click", function () {
+     currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+     updateCarousel();
+   });
+
+   btnRight.addEventListener("click", function () {
+     currentIndex = (currentIndex + 1) % slides.length;
+     updateCarousel();
+   });
+
+   updateCarousel();
   }
-  btnLeft.addEventListener("click", function () {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateCarousel();
-  });
-
-  btnRight.addEventListener("click", function () {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateCarousel();
-  });
-
 
 });
 
