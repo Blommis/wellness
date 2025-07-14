@@ -1,9 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+
+<div class="recipes-header">
+  <img src="{% static 'images/recipe-header.webp' %}" alt="">
+</div>
+
 <div class="container py-5" id="recipes-container">
   <h1 class="mb-4 text-center">Recipes</h1>
-  <p class="text-center">Explore healthy ideas for breakfast, lunch, and snacks.</p>
+  <p class="text-center">Discover delicious and nutritious recipes tailored
+   for every part of your day — from energizing breakfasts to satisfying lunches 
+   and wholesome snacks. Whether you're fueling your workout or simply eating well,
+    our recipes are designed to support a balanced, healthy lifestyle.
+
+  </p>
 
   <!-- Breakfast Section -->
   <h2 class="mt-5 text-center">Breakfast</h2>
