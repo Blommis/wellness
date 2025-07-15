@@ -2,7 +2,24 @@
 {% load static %}
 
 {% block content %}
-<div class="container py-5" id="about-container">
+<section class="py-5 bg-light" id="about-hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <h1>About us</h1>
+        <p>
+          At Wellness, we believe that healthy living should be accessible, inspiring, and personal. 
+          Our mission is to guide you toward a balanced lifestyle through curated nutrition, 
+          expert advice, and a supportive community. Whether you're starting your wellness journey or looking to level up, 
+          we're here to help you feel your best — every day.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Gallery section-->
+<div class="container py-5" id="gallery-container">
   <h1 class="text-center mb-4">Gallery</h1>
   <div class="gallery-masonry">
     {% for image in images %}
