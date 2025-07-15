@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_meta %}
+<meta name="description" content="Learn how to make {{ recipe.name }} – a healthy and tasty recipe from our collection. View ingredients, instructions, and user reviews.">
+{% endblock extra_meta %}
+
 {% block content %}
 <div class="container py-5" id="recipe-detail">
   <div class="card shadow-lg border-0">

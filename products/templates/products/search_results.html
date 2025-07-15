@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_meta %}
+<meta name="description" content="Browse search results tailored to your wellness needs – find supplements, meal plans, and recipes that match your goals.">
+{% endblock extra_meta %}
+
 {% block content %}
 <div class="container py-5" id ="search-page">
   <h2 class="mb-4">Search Results for "{{ query }}"</h2>

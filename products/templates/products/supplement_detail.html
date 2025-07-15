@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_meta %}
+<meta name="description" content="Explore details about {{ supplement.name }} – learn more about its benefits, ingredients, and how it supports your wellness goals.">
+{% endblock extra_meta %}
+
+
 {% block content %}
 <div class="supplement-detail">
   <img src="{{ supplement.image.url }}" alt="{{ supplement.name }}">
