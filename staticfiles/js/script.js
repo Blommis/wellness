@@ -1,3 +1,6 @@
+/* jshint esversion: 6 */
+/* global Stripe */
+
 const toggleBtn = document.getElementById("hamburger-toggle");
 const menu = document.getElementById("mobile-menu");
 const searchToggle = document.getElementById("mobile-search-toggle");
@@ -32,11 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (track && btnLeft && btnRight && slides.length > 0){
     let currentIndex = 0;
-
-   function updateCarousel() {
+    
+    const updateCarousel = function () {
      const offset = -currentIndex * 100;
      track.style.transform = `translateX(${offset}%)`;
-   }
+   };
 
    btnLeft.addEventListener("click", function () {
      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
