@@ -8,6 +8,9 @@ html, body {
 body{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+h1 {
+  font-size: 2.5rem;
+}
 /*Push down footer to the bottom*/
 main {
   flex: 1;
