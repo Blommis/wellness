@@ -132,24 +132,28 @@
    <!-- Footer -->
 <section id="footer">
   <div>
-    <h4 class="footerheader">Home</h4>
+    <h5 class="footerheader"><a href="{% url 'home' %}">Home</a></h5>
     <ul>
-      <li>Events</li>
+      <li><a href="{% url 'home' %}#events">Events</a></li>
     </ul>
   </div>
   <div>
-    <h4 class="footerheader">Services</h4>
+    <h5 class="footerheader">Services</h5>
     <ul>
       <li><a href="{% url 'products:supplements' %}">Supplements</a></li>
-      <li>Meal plans</li>
-      <li>Recipes</li>
+      <li><a href="{% url 'products:view_mealplan' %}">Meal plans</a></li>
+      <li><a href="{% url 'recipes:recipes' %}">Recipes</a></li>
     </ul>
   </div>
   <div>
-    <h4 class="footerheader">About</h4>
+    <h5 class="footerheader"><a href="{% url 'about' %}">About</a></h5>
+     <ul>
+      <li><a href="{% url 'about' %}#gallery-container">Gallery</a></li>
+      <li><a href="{% url 'about' %}#contact">Customer service</a></li>
+    </ul>
   </div>
   <div class="footer-form">
-    <h4 class="footerheader">Subscribe to our newsletter</h4>
+    <h5 class="footerheader">Subscribe to our newsletter</h5>
     <form>
     <div class="mb-2">
       <label for="email" class="form-label visually-hidden">Email address</label>

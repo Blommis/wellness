@@ -477,6 +477,11 @@ select option[value=""] {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  list-style: none;
+}
+.footerheader a {
+  text-decoration: none;
+  color: inherit;
 }
 
 #footer ul {
