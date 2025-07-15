@@ -84,7 +84,7 @@
             <form method="GET" action="{% url 'products:search_results' %}" class="desktop-search-form w-75 position-relative">
                 <input class="form-control form-control-lg border border-black rounded-0 ps-5" type="text" name="q"
                     placeholder="Search">
-                <button class="btn position-absolute top-50 start-0 translate-middle-y ms-2 p-0" type="submit">
+                <button class="btn position-absolute top-50 start-0 translate-middle-y ms-2 p-0" type="submit" aria-label="Search-icon">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
@@ -132,13 +132,13 @@
    <!-- Footer -->
 <section id="footer">
   <div>
-    <h5 class="footerheader"><a href="{% url 'home' %}">Home</a></h5>
+    <h4 class="footerheader"><a href="{% url 'home' %}">Home</a></h4>
     <ul>
       <li><a href="{% url 'home' %}#events">Events</a></li>
     </ul>
   </div>
   <div>
-    <h5 class="footerheader">Services</h5>
+    <h4 class="footerheader">Services</h4>
     <ul>
       <li><a href="{% url 'products:supplements' %}">Supplements</a></li>
       <li><a href="{% url 'products:view_mealplan' %}">Meal plans</a></li>
@@ -146,14 +146,14 @@
     </ul>
   </div>
   <div>
-    <h5 class="footerheader"><a href="{% url 'about' %}">About</a></h5>
+    <h4 class="footerheader"><a href="{% url 'about' %}">About</a></h4>
      <ul>
       <li><a href="{% url 'about' %}#gallery-container">Gallery</a></li>
       <li><a href="{% url 'about' %}#contact">Customer service</a></li>
     </ul>
   </div>
   <div class="footer-form">
-    <h5 class="footerheader">Subscribe to our newsletter</h5>
+    <h4 class="footerheader">Subscribe to our newsletter</h4>
     <form>
     <div class="mb-2">
       <label for="email" class="form-label visually-hidden">Email address</label>

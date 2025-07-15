@@ -94,6 +94,12 @@ main {
   padding: 10px 20px;
   border-radius: 0; 
 }
+/*Why choose wellness section*/
+.argument-container{
+  font-size: 1.5rem !important;
+}
+
+/*Why choose wellness section-ENDS*/
 /*EVENT SECTION*/
 
 .events-carousel-section {
