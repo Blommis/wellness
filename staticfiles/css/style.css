@@ -11,6 +11,10 @@ body{
 h1 {
   font-size: 2.5rem;
 }
+
+section h1 {
+  font-size: 3rem;
+}
 /*Push down footer to the bottom*/
 main {
   flex: 1;
