@@ -465,6 +465,10 @@ select option[value=""] {
   break-inside: avoid;
 }
 
+#contact{
+  background-color: rgb(30, 35, 30) !important;
+  color: white !important;
+}
 
 /*FOOTER*/
 #footer {
