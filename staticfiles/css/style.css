@@ -443,7 +443,13 @@ select option[value=""] {
 }
 
 /*ABOUT PAGE*/
-#about-container{
+#about-hero{
+  background-image: url('../images/abouthero.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  min-height: 400px;
   padding-top: 200px !important;
 }
 
@@ -601,8 +607,8 @@ ul li a {
   width: 50%;
 
 }
-#about-container{
-  padding-top: 150px !important;
+#about-hero{
+  padding-top: 250px !important;
 }
 .gallery-masonry {
     column-count: 3;
