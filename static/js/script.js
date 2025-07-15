@@ -162,3 +162,23 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 
+// subscribe to newsletter message (this will not send actual email)
+
+document.addEventListener('DOMContentLoaded', function (){
+  const form = document.querySelector('.footer-form form');
+  const emailInput = document.getElementById('email');
+  const messageBox = document.getElementById('newsletter-message');
+
+  form.addEventListener('submit', function (e){
+    e.preventDefault();
+
+    if (emailInput.value.trim() !== '') {
+      messageBox.textContent = "You're now subscribed to our newsletter!";
+      messageBox.style.color = "black";
+      emailInput.value = '';
+    } else{
+      messageBox.textContent = "Please enter a valid email address.";
+      messageBox.style.color = "red";
+      }
+  });
+});
