@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 
-// subscribe to newsletter message
+// subscribe to newsletter message (this will not send actual email)
 
 document.addEventListener('DOMContentLoaded', function (){
   const form = document.querySelector('.footer-form form');

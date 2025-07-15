@@ -20,59 +20,60 @@
 
   </p>
 
-  <!-- Breakfast Section -->
-  <h2 class="mt-5 text-center">Breakfast</h2>
+    <!-- Breakfast Section -->
+    <h2 class="mt-5 text-center">Breakfast</h2>
+    <div class="row">
+      {% for breakfast in breakfasts %}
+      <div class="col-md-6 col-lg-4 mb-4">
+      <a href="{% url 'recipes:recipe_detail' category='breakfast' pk=breakfast.id %}" class="text-decoration-none text-dark">
+        <div class="card h-100 shadow">
+          <img src="{{ breakfast.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ breakfast.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ breakfast.name }}</h5>
+            {% if breakfast.review_count > 0 %}
+          <p class="text-success small mb-0">Has {{ breakfast.review_count }} reviews </p>
+          {% endif %}
+            <p class="card-text">{{ breakfast.short_description }}</p>
+          </div>
+        </div>
+      </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Lunch Section -->
+  <h2 class="mt-5 text-center">Lunch</h2>
   <div class="row">
-    {% for breakfast in breakfasts %}
+    {% for lunch in lunches %}
     <div class="col-md-6 col-lg-4 mb-4">
-    <a href="{% url 'recipes:recipe_detail' category='breakfast' pk=breakfast.id %}" class="text-decoration-none text-dark">
+      <a href="{% url 'recipes:recipe_detail' category='lunch' pk=lunch.id %}" class="text-decoration-none text-dark">
       <div class="card h-100 shadow">
-        <img src="{{ breakfast.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ breakfast.name }}">
+        <img src="{{ lunch.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ lunch.name }}">
         <div class="card-body">
-          <h5 class="card-title">{{ breakfast.name }}</h5>
-          {% if breakfast.review_count > 0 %}
-        <p class="text-success small mb-0">Has {{ breakfast.review_count }} reviews </p>
-        {% endif %}
-          <p class="card-text">{{ breakfast.short_description }}</p>
+          <h5 class="card-title">{{ lunch.name }}</h5>
+          <p class="card-text">{{ lunch.short_description }}</p>
         </div>
       </div>
-    </a>
+      </a>
     </div>
     {% endfor %}
   </div>
-
-  <!-- Lunch Section -->
-<h2 class="mt-5 text-center">Lunch</h2>
-<div class="row">
-  {% for lunch in lunches %}
-  <div class="col-md-6 col-lg-4 mb-4">
-    <a href="{% url 'recipes:recipe_detail' category='lunch' pk=lunch.id %}" class="text-decoration-none text-dark">
-    <div class="card h-100 shadow">
-      <img src="{{ lunch.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ lunch.name }}">
-      <div class="card-body">
-        <h5 class="card-title">{{ lunch.name }}</h5>
-        <p class="card-text">{{ lunch.short_description }}</p>
+  <!-- Snacks Section -->
+  <h2 class="mt-5 text-center">Snacks</h2>
+  <div class="row">
+    {% for snack in snacks %}
+    <div class="col-md-6 col-lg-4 mb-4">
+      <a href="{% url 'recipes:recipe_detail' category='snack' pk=snack.id %}" class="text-decoration-none text-dark">
+      <div class="card h-100 shadow">
+        <img src="{{ snack.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ snack.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ snack.name }}</h5>
+          <p class="card-text">{{ snack.short_description }}</p>
+        </div>
       </div>
+      </a>
     </div>
-    </a>
+    {% endfor %}
   </div>
-  {% endfor %}
-</div>
-<!-- Snacks Section -->
-<h2 class="mt-5 text-center">Snacks</h2>
-<div class="row">
-  {% for snack in snacks %}
-  <div class="col-md-6 col-lg-4 mb-4">
-    <a href="{% url 'recipes:recipe_detail' category='snack' pk=snack.id %}" class="text-decoration-none text-dark">
-    <div class="card h-100 shadow">
-      <img src="{{ snack.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ snack.name }}">
-      <div class="card-body">
-        <h5 class="card-title">{{ snack.name }}</h5>
-        <p class="card-text">{{ snack.short_description }}</p>
-      </div>
-    </div>
-    </a>
-  </div>
-  {% endfor %}
 </div>
 {% endblock %}
