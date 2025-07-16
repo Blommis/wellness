@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from .models import Supplement
@@ -9,6 +9,7 @@ from recipes.models import Breakfast, Lunch, Snack
 
 
 def search_results(request):
+    """ Handles search queries for supplements, meal plans, and recipes. """
     query = request.GET.get('q')
     supplements = []
     mealplans = []
@@ -18,13 +19,13 @@ def search_results(request):
 
     if query in ['supplement', 'supplements']:
         return redirect('products:supplements')
-    
+
     if query in ['mealplan', 'mealplans']:
         return redirect('products:view_mealplan')
-    
+
     if query in ['recipe', 'recipes']:
         return redirect('recipes:recipes')
-    
+
     if query:
         supplements = Supplement.objects.filter(
             Q(name__icontains=query) | Q(description__icontains=query)
@@ -34,13 +35,19 @@ def search_results(request):
         )
 
         breakfast_recipes = Breakfast.objects.filter(
-            Q(name__icontains=query) | Q(short_description__icontains=query) | Q(description__icontains=query)
+            Q(name__icontains=query)
+            | Q(short_description__icontains=query)
+            | Q(description__icontains=query)
         )
         lunch_recipes = Lunch.objects.filter(
-            Q(name__icontains=query) | Q(short_description__icontains=query) | Q(description__icontains=query)
+            Q(name__icontains=query)
+            | Q(short_description__icontains=query)
+            | Q(description__icontains=query)
         )
         snack_recipes = Snack.objects.filter(
-            Q(name__icontains=query) | Q(short_description__icontains=query) | Q(description__icontains=query)
+            Q(name__icontains=query)
+            | Q(short_description__icontains=query)
+            | Q(description__icontains=query)
         )
     else:
         messages.error(request, "Please enter a search term.")
@@ -56,18 +63,19 @@ def search_results(request):
     return render(request, 'products/search_results.html', context)
 
 
-
 def supplements(request):
     """A view to show the supplement page"""
 
     supplements = Supplement.objects.all()
-   
+
     context = {
         'supplements': supplements,
     }
     return render(request, 'products/supplements.html', context)
 
+
 def supplement_detail(request, pk):
+    """ A view showing more detail for each supplement """
     supplement = get_object_or_404(Supplement, pk=pk)
 
     context = {
