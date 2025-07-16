@@ -51,6 +51,3 @@ def bag_contents(request):
         'grand_total': grand_total,
         'product_count': product_count,
     }
-
-
-
