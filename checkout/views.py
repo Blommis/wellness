@@ -1,14 +1,12 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from .forms import OrderForm
 from bag.context_processors import bag_contents
 from django.conf import settings
 import stripe
-from .models import Order, OrderLineItem
-from products.models import Supplement, MealPlan
-from django.contrib.contenttypes.models import ContentType
-from profiles.models import UserProfile
+from .models import Order
 import json
+import time
 
 # Create your views here.
 
@@ -46,45 +44,10 @@ def checkout(request):
         order_form = OrderForm(form_data)
 
         if order_form.is_valid():
-            order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
-            order.stripe_pid = pid
-            order.original_bag = json.dumps(bag)
+            request.session['save_info'] = 'save-info' in request.POST
 
-            if request.user.is_authenticated:
-                order.user_profile = request.user.userprofile
-            order.save()
-
-            for item_key, item_data in bag.items():
-                try:
-                    product_type, object_id = item_key.split("_")
-                    object_id = int(object_id)
-                except ValueError:
-                    continue
-
-                quantity = item_data.get('quantity', 1)
-
-                if product_type == 'supplement':
-                    model = Supplement
-                elif product_type == 'mealplan':
-                    model = MealPlan
-                else:
-                    continue
-
-                product = get_object_or_404(model, pk=object_id)
-                content_type = ContentType.objects.get_for_model(model)
-
-                lineitem = OrderLineItem(
-                    order=order,
-                    content_type=content_type,
-                    object_id=product.id,
-                    quantity=quantity,
-                )
-                lineitem.save()
-            return redirect(
-                'checkout_success',
-                order_number=order.order_number
-            )
+            return redirect('checkout_success', stripe_pid=pid)
         else:
             messages.error(
                 request,
@@ -95,9 +58,10 @@ def checkout(request):
         bag_data = bag_contents(request)
         total = bag_data['grand_total']
         stripe_total = round(total * 100)
-        initial_data = {}
-        if request.user.is_authenticated:
 
+        initial_data = {}
+
+        if request.user.is_authenticated:
             try:
                 profile = request.user.userprofile
                 initial_data = {
@@ -111,7 +75,7 @@ def checkout(request):
                     'street_address2': profile.default_street_address2,
                     'county': profile.default_county,
                 }
-            except UserProfile.DoesNotExist:
+            except Exception:
                 pass
         order_form = OrderForm(initial=initial_data)
 
@@ -131,26 +95,37 @@ def checkout(request):
             metadata=metadata
         )
 
-    template = 'checkout/checkout.html'
-    context = {
-        'order_form': order_form,
-        'bag_items': bag_data['bag_items'],
-        'order_total': bag_data['total'],
-        'delivery_cost': bag_data['delivery'],
-        'grand_total': bag_data['grand_total'],
-        'stripe_public_key': stripe_public_key,
-        'client_secret': intent.client_secret,
-    }
+        template = 'checkout/checkout.html'
+        context = {
+            'order_form': order_form,
+            'bag_items': bag_data['bag_items'],
+            'order_total': bag_data['total'],
+            'delivery_cost': bag_data['delivery'],
+            'grand_total': bag_data['grand_total'],
+            'stripe_public_key': stripe_public_key,
+            'client_secret': intent.client_secret,
+        }
+        return render(request, template, context)
 
-    return render(request, template, context)
 
-
-def checkout_success(request, order_number):
+def checkout_success(request, stripe_pid):
     """
     retrieves the order, clears the bag from the session,
     shows a success message, and renders the confirmation page.
     """
-    order = get_object_or_404(Order, order_number=order_number)
+    order = None
+    attempt = 1
+
+    while attempt <= 5:
+        order = Order.objects.filter(stripe_pid=stripe_pid).first()
+        if order:
+            break
+        attempt += 1
+        time.sleep(1)
+
+    if not order:
+        messages.error(request, "Your order could not be found.")
+        return redirect('home')
 
     # Empty bag
     if 'bag' in request.session:
@@ -158,7 +133,7 @@ def checkout_success(request, order_number):
 
     messages.success(
         request,
-        f"Order {order_number} confirmed! "
+        f"Order {order.order_number} confirmed! "
         f"A confirmation email will be sent to {order.email}."
     )
 

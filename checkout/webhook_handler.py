@@ -90,6 +90,7 @@ class StripeWH_Handler:
                     profile.save()
             except UserProfile.DoesNotExist:
                 profile = None
+        order = None
         order_exists = False
         attempt = 1
         while attempt <= 5:
@@ -113,14 +114,34 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_exists:
+            lineitems = OrderLineItem.objects.filter(order=order)
+            if not lineitems.exists():
+                for item_key, item_data in bag_data.items():
+                    product_type, object_id = item_key.split('_')
+                    object_id = int(object_id)
+                    quantity = item_data.get('quantity', 1)
+
+                    if product_type == 'supplement':
+                        model = Supplement
+                    elif product_type == 'mealplan':
+                        model = MealPlan
+                    else:
+                        continue
+
+                    product = model.objects.get(id=object_id)
+                    content_type = ContentType.objects.get_for_model(model)
+
+                    OrderLineItem.objects.create(
+                        order=order,
+                        content_type=content_type,
+                        object_id=product.id,
+                        quantity=quantity,
+                    )
             self._send_confirmation_email(order)
             return HttpResponse(
-                content=(
-                    f'Webhook received: {event["type"]} | '
-                    'SUCCESS: Verified order already in database',
-                ),
-                status=200
-            )
+                content=(f'Webhook received: {event["type"]} | SUCCESS: '
+                         'Verified order already in database'),
+                status=200)
         else:
             order = None
             try:
