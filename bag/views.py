@@ -40,9 +40,6 @@ def view_bag(request):
     return render(request, 'bag/bag.html', context)
 
 
-
-
-
 def add_to_bag(request): 
     """add products to shopping cart"""
 
@@ -54,17 +51,16 @@ def add_to_bag(request):
 
         if not product_id or not product_type:
             return redirect(redirect_url)
-        
+
         key = f"{product_type}_{product_id}"
         bag = request.session.get('bag', {})
 
-        # supplement, quanity, user can user more than 1: 
+        # supplement, quanity, user can user more than 1:
         if product_type == 'supplement':
             if key in bag:
                 bag[key]['quantity'] += quantity
             else:
                 bag[key] = {'type': product_type, 'quantity': quantity}
-
 
         # user can only pick one for each plan for each order
         elif product_type == 'mealplan':
@@ -72,9 +68,9 @@ def add_to_bag(request):
 
         request.session['bag'] = bag
         return redirect(redirect_url)
-    
+
     return redirect('view_bag')
-    
+
 
 def remove_from_bag(request, item_key):
     """Remove item from shopping bag"""
@@ -83,8 +79,11 @@ def remove_from_bag(request, item_key):
     if item_key in bag:
         del bag[item_key]
         request.session['bag'] = bag
-        messages.success(request, 'Item removed from your bag.', extra_tags='bag')
+        messages.success(
+            request,
+            'Item removed from your bag.', extra_tags='bag')
     else:
-        messages.error(request, 'Item not found in your bag.', extra_tags='bag')
+        messages.error(
+            request, 'Item not found in your bag.', extra_tags='bag')
 
     return redirect('view_bag')
