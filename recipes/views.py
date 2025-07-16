@@ -9,6 +9,10 @@ from django.contrib.auth.decorators import login_required
 
 
 def recipes(request):
+    """
+    Renders the recipes page with all breakfasts, lunches, and snacks,
+    each annotated with their number of associated reviews.
+    """
     breakfasts = annotate_with_review_count(Breakfast.objects.all(), Breakfast)
     lunches = annotate_with_review_count(Lunch.objects.all(), Lunch)
     snacks = annotate_with_review_count(Snack.objects.all(), Snack)
@@ -35,13 +39,18 @@ def annotate_with_review_count(queryset, model):
 
 
 def recipe_detail(request, category, pk):
+    """
+    Handles the display of a specific recipe's details and reviews.
+    If the user is authenticated and submits a valid review form,
+    the review is saved and the page is reloaded.
+    """
     model_map = {
         'breakfast': Breakfast,
         'lunch': Lunch,
         'snack': Snack,
     }
     model = model_map.get(category)
-    
+
     recipe = get_object_or_404(model, pk=pk)
 
     content_type = ContentType.objects.get_for_model(model)
@@ -72,10 +81,12 @@ def recipe_detail(request, category, pk):
 
 @login_required
 def delete_review(request, review_id):
+    """ user as authenticated can delete their own reviews"""
+    
     review = get_object_or_404(Review, id=review_id)
     if review.user != review.user:
         return redirect('recipes:recipes')
-    
+
     category = review.content_type.model
     object_id = review.object_id
 
