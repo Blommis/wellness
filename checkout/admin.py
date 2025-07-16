@@ -30,7 +30,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 """
-    Skip registering the 'OrderLineItem' model due 
+    Skip registering the 'OrderLineItem' model due
     to its accessible via the inline on the order model
 """
 admin.site.register(Order, OrderAdmin)
