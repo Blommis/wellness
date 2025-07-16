@@ -16,6 +16,7 @@ Order Summary:
   {{ order.street_address2 }}
   {% endif %}
   {{ order.postcode }} {{ order.town_or_city }}
+  {{ order.county }}
   {{ order.country }}
 
 If you have any questions, feel free to contact us at {{ contact_email }}.
