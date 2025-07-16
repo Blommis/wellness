@@ -14,6 +14,12 @@ import json
 
 
 def checkout(request):
+    """
+    handles the order process. It validates the bag and form data,
+    saves the order and related items, and sets up Stripe payment.
+    If the user is authenticated, their profile data pre-fills the form.
+
+    """
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     stripe.api_key = stripe_secret_key
@@ -23,7 +29,7 @@ def checkout(request):
     if not bag:
         messages.error(request, "Unfortunately, your bag is empty.")
         return redirect(reverse('home'))
-    
+
     if request.method == 'POST':
         form_data = {
             'full_name': request.POST['full_name'],
@@ -37,7 +43,6 @@ def checkout(request):
             'county': request.POST['county'],
         }
 
-        
         order_form = OrderForm(form_data)
 
         if order_form.is_valid():
@@ -48,12 +53,11 @@ def checkout(request):
 
             if request.user.is_authenticated:
                 order.user_profile = request.user.userprofile
-                
             order.save()
 
             for item_key, item_data in bag.items():
                 try:
-                    product_type, object_id = item_key.split("_")  # 'supplement' or 'mealplan'
+                    product_type, object_id = item_key.split("_")
                     object_id = int(object_id)
                 except ValueError:
                     continue
@@ -65,7 +69,7 @@ def checkout(request):
                 elif product_type == 'mealplan':
                     model = MealPlan
                 else:
-                    continue  
+                    continue
 
                 product = get_object_or_404(model, pk=object_id)
                 content_type = ContentType.objects.get_for_model(model)
@@ -77,17 +81,20 @@ def checkout(request):
                     quantity=quantity,
                 )
                 lineitem.save()
-                
-            return redirect('checkout_success', order_number=order.order_number)
-        else: 
-            messages.error(request, "There was an error with your form. Please check your details.")
+            return redirect(
+                'checkout_success',
+                order_number=order.order_number
+            )
+        else:
+            messages.error(
+                request,
+                "There was an error with your form. Please check your details."
+            )
             return redirect('checkout')
-    
-    else: 
+    else:
         bag_data = bag_contents(request)
         total = bag_data['grand_total']
         stripe_total = round(total * 100)
-        
         initial_data = {}
         if request.user.is_authenticated:
 
@@ -110,7 +117,11 @@ def checkout(request):
 
         metadata = {
             'bag': json.dumps(bag),
-            'username': request.user.username if request.user.is_authenticated else 'AnonymousUser',
+            'username': (
+                request.user.username
+                if request.user.is_authenticated
+                else 'AnonymousUser'
+            ),
             'save_info': False,
         }
 
@@ -135,17 +146,20 @@ def checkout(request):
 
 
 def checkout_success(request, order_number):
+    """
+    retrieves the order, clears the bag from the session,
+    shows a success message, and renders the confirmation page.
+    """
     order = get_object_or_404(Order, order_number=order_number)
 
     # Empty bag
     if 'bag' in request.session:
         del request.session['bag']
 
-    messages.success(request, f"Order {order_number} confirmed! A confirmation email will be sent to {order.email}.")
+    messages.success(
+        request,
+        f"Order {order_number} confirmed! "
+        f"A confirmation email will be sent to {order.email}."
+    )
 
     return render(request, 'checkout/checkout_success.html', {'order': order})
-
-
-
-
-    
