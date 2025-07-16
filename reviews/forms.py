@@ -12,6 +12,8 @@ class ReviewForm(forms.ModelForm):
                 attrs={'class': 'form-select'}
             ),
             'comment': forms.Textarea(
-                attrs={'rows': 4, 'class': 'form-control', 'placeholder': 'Write your comment here...'}
+                attrs={'rows': 4,
+                       'class': 'form-control',
+                       'placeholder': 'Write your comment here...'}
             ),
         }
