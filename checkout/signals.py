@@ -10,7 +10,7 @@ def update_on_save(sender, instance, created, **kwargs):
     Update the order total when a line item is created or updated.
     """
     if created:
-        print(f"New line item created for order: {instance.order.order_number}")
+        print(f"Created line item for order: {instance.order.order_number}")
     instance.order.update_total()
 
 
