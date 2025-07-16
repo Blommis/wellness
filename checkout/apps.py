@@ -6,4 +6,9 @@ class CheckoutConfig(AppConfig):
     name = 'checkout'
 
     def ready(self):
-        import checkout.signals
+        """
+        Import used for its side effects (signal registration),
+        not directly referenced.
+        noqa is added to avoid false positive linting warnings.
+        """
+        import checkout.signals  # noqa: F401
