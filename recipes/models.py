@@ -13,9 +13,9 @@ class RecipeBase(models.Model):
     instructions = models.TextField()
     image = CloudinaryField('image', blank=True, null=True)
 
-    class Meta: 
+    class Meta:
         abstract = True
-    
+
     def __str__(self):
         return self.name
 
@@ -33,8 +33,3 @@ class Lunch (RecipeBase):
 class Snack(RecipeBase):
     class Meta:
         verbose_name_plural = "Snack Recipes"
-
-
-
-
-

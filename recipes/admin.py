@@ -4,4 +4,3 @@ from .models import Breakfast, Lunch, Snack
 admin.site.register(Breakfast)
 admin.site.register(Lunch)
 admin.site.register(Snack)
-

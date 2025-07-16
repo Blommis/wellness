@@ -82,7 +82,7 @@ def recipe_detail(request, category, pk):
 @login_required
 def delete_review(request, review_id):
     """ user as authenticated can delete their own reviews"""
-    
+
     review = get_object_or_404(Review, id=review_id)
     if review.user != review.user:
         return redirect('recipes:recipes')
