@@ -2,6 +2,7 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 # Create your models here.
 
+
 class Supplement(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -11,7 +12,6 @@ class Supplement(models.Model):
 
     def __str__(self):
         return self.name
-    
 
 
 class MealPlan(models.Model):
@@ -23,4 +23,3 @@ class MealPlan(models.Model):
 
     def __str__(self):
         return self.name
-    

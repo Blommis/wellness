@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Supplement, MealPlan
 # Register your models here.
 
+
 class SupplementAdmin(admin.ModelAdmin):
     list_display = (
         'name',
