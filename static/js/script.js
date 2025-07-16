@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function(){
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
+      const overlay = document.getElementById("loading-overlay");
+      if (overlay) overlay.classList.remove("d-none");
       
       card.update({ 'disabled': true });
       submitButton.disabled = true;
@@ -144,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function(){
           }
         }
     }).then(function (result) {
-
       if (result.error) {
         const errorDiv = document.getElementById("card-errors");
         errorDiv.innerHTML = `
@@ -153,15 +154,22 @@ document.addEventListener('DOMContentLoaded', function(){
           </span>
           <span>${result.error.message}</span>
         `;
+
+        if (overlay) overlay.classList.add("d-none");
         card.update({ 'disabled': false });
         submitButton.disabled = false;
+  
       } else {
-        if (result.paymentIntent.status === "succeeded") {
-          form.submit();
-        }
+          if (result.paymentIntent.status === "succeeded") {
+            const overlay = document.getElementById("loading-overlay");
+            if (overlay) overlay.classList.remove("d-none");
+            setTimeout(function (){
+              window.location.href = `/checkout/checkout_success/${result.paymentIntent.id}/`;
+            }, 3000);
+          }
       }
     });
-    });
+  });
   }
 });
 
