@@ -51,6 +51,9 @@
         <img src="{{ lunch.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ lunch.name }}">
         <div class="card-body">
           <h5 class="card-title">{{ lunch.name }}</h5>
+            {% if lunch.review_count > 0 %}
+          <p class="text-success small mb-0">Has {{ lunch.review_count }} reviews </p>
+          {% endif %}
           <p class="card-text">{{ lunch.short_description }}</p>
         </div>
       </div>
@@ -68,6 +71,9 @@
         <img src="{{ snack.image.url }}" class="card-img-top object-fit-cover" style="height: 180px;" alt="{{ snack.name }}">
         <div class="card-body">
           <h5 class="card-title">{{ snack.name }}</h5>
+            {% if snack.review_count > 0 %}
+          <p class="text-success small mb-0">Has {{ snack.review_count }} reviews </p>
+          {% endif %}
           <p class="card-text">{{ snack.short_description }}</p>
         </div>
       </div>
