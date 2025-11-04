@@ -22,13 +22,14 @@ main {
 
 /*NAVBAR STYLES*/
 #navbar {
-    background: linear-gradient(135deg, #14d188, #01f737);
+    background:#198754;
     padding-top: 10px;
+    color: white;
 }
 
 /* Mobile input style */
 #mobile-search-form input {
-    border: 1px solid #000;
+    border: black;
     font-size: 0.9rem;
 }
 
@@ -40,6 +41,7 @@ main {
     text-align: center;
     padding: 10px 0;
     margin: 0;
+    color: white;
 }
 
 .second-navbar li {
@@ -48,7 +50,7 @@ main {
 
 .second-navbar a {
     text-decoration: none;
-    color: black;
+    color: white;
     font-weight: 500;
 }
 
@@ -499,12 +501,13 @@ select option[value=""] {
 
 /*FOOTER*/
 #footer {
-  background: linear-gradient(135deg, #14d188, #01f737);
+  background: #198754;
   padding: 30px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   list-style: none;
+  color: white;
 }
 .footerheader a {
   text-decoration: none;
