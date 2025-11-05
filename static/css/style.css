@@ -28,9 +28,22 @@ main {
 }
 
 /* Mobile input style */
+#mobile-search-form {
+  position: fixed !important;
+  width: 100vw;
+  top: 48px;
+  left: 0;
+  right: 0;
+  padding: 0 2px; /*Some air on the sides*/
+  z-index: 2000;
+}
 #mobile-search-form input {
+    width: 100%;
+    border-radius: 0;
     border: black;
     font-size: 0.9rem;
+    padding: 3px;
+    box-sizing: border-box;
 }
 
 /* Second navbar default (mobile hidden) */
