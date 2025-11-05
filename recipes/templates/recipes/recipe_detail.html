@@ -7,26 +7,31 @@
 
 {% block content %}
 <div class="container py-5" id="recipe-detail">
-  <div class="card shadow-lg border-0">
-    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"
-         class="card-img-top img-fluid" style="height: 300px; object-fit: cover;">
+  <div class="card shadow-lg border-0 p-3">
+    <div class="row g-4 align-items-start">
+      <div class="col-12 col-md-5 order-1 order-md-2 text-center">
+        <img src="{{ recipe.image.url }}" 
+        alt="{{ recipe.name }}"
+        class="img-fluid rounded" 
+        style="object-fit: cover; width: 100%; height: auto; max-height: 400px;">
+      </div>
 
-    <div class="card-body">
-      <h1 class="card-title text-center mb-3">{{ recipe.name }}</h1>
+    <div class="col-12 col-md-7 order-2 order-md-1">
+      <h1 class="card-title mb-3 text-center">{{ recipe.name }}</h1>
       <p class="text-center text-muted"><strong>Category:</strong> {{ category }}</p>
 
       <hr>
 
-      <h4 class="mt-4">Description</h4>
+      <h3><strong>Description</strong></h3>
       <p>{{ recipe.description }}</p>
 
-      <h4 class="mt-4">Ingredients</h4>
+      <h3><strong>Ingredients</strong></h3>
       <ul class="mb-3 ps-3">
       {% for line in recipe.ingredients.splitlines %}
       <li>{{ line }}</li>
       {% endfor %}
       </ul>
-     <h4 class="mt-4">Instructions</h4>
+     <h3><strong>Instructions</strong></h3>
       <ol class="ps-3 mb-3">
       {% for step in recipe.instructions.splitlines %}
      {% if step %}
@@ -34,9 +39,12 @@
       {% endif %}
      {% endfor %}
 </ol>
+    </div>
+    </div>
 
-<hr>
-<h4 class="mt-4">Reviews</h4>
+<hr class="my-4"
+>
+<h3 class="mt-4"><strong>Reviews</strong></h3>
 
 {% if average_rating %}
 <p><strong>Average rating:</strong> {{ average_rating|floatformat:1 }} / 5</p>
@@ -61,7 +69,7 @@
 
 {% if user.is_authenticated %}
   <hr>
-  <h5>Leave a review</h5>
+  <h3><strong>Leave a review</strong></h3>
   <form method="POST" class="review-form">
     {% csrf_token %}
     <div class="mb-3">

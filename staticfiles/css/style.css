@@ -665,10 +665,16 @@ ul li a {
 .gallery-masonry {
     column-count: 3;
   }
+
+ #recipe-detail {
+  padding-top: 150px !important;
+}
+
 }
 #search-page{
   padding-top: 150px !important;
 }
+
 
 
 /*FOR LARGE SCREENS*/
