@@ -545,6 +545,17 @@ ul li a {
   border-radius: 2px;
 }
 
+.newsletter-btn {
+  background-color: #ff8800 !important;
+  border-color: #ff8800 !important;
+  color: white;
+}
+
+.newsletter-btn:hover {
+  background-color: #e67600 !important;
+  border-color: #e67600 !important;
+}
+
 
 /*MEDIA QUIRES*/
 /* Desktop layout */
