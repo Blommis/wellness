@@ -300,6 +300,12 @@ main {
   border-radius: 6px;
   margin-bottom: 20px;
 }
+.click-image{
+  padding-top: 100px;
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
 
 .supplement-detail h1 {
   font-size: 2rem;
@@ -572,6 +578,12 @@ ul li a {
   .gallery-masonry {
     column-count: 2;
   }
+  .click-image{
+  padding-top: 100px;
+  max-width: 150vw;
+  max-height: 150vh;
+  object-fit: contain;
+}
 }
 
 @media screen and (min-width: 768px) {

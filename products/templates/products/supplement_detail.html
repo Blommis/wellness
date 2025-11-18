@@ -8,7 +8,9 @@
 
 {% block content %}
 <div class="supplement-detail">
+  <a href="{% url 'products:supplement_image' supplement.id %}">
   <img src="{{ supplement.image.url }}" alt="{{ supplement.name }}">
+  </a>
   <h1>{{ supplement.name }}</h1>
   <p class="supplement-description">{{ supplement.description }}</p>
   <p class="supplement-price">Price: £{{ supplement.price }}</p>

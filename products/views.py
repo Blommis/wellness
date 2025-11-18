@@ -93,3 +93,8 @@ def view_mealplan(request):
     }
 
     return render(request, 'products/mealplan.html', context)
+
+
+def supplement_image(request, pk):
+    supplement = get_object_or_404(Supplement, pk=pk)
+    return render(request, "products/supplement_image.html", {"supplement": supplement})
