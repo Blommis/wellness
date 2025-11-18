@@ -6,11 +6,14 @@ from cloudinary.models import CloudinaryField
 
 class RecipeBase(models.Model):
     """Abstract base model for shared fields"""
+    prep_time = models.CharField(max_length=50, blank=True)
+    servings = models.PositiveIntegerField(default=1)
     name = models.CharField(max_length=100)
     short_description = models.CharField(max_length=200)
     description = models.TextField()
     ingredients = models.TextField()
     instructions = models.TextField()
+    nutritional_info = models.TextField(blank=True)
     image = CloudinaryField('image', blank=True, null=True)
 
     class Meta:
