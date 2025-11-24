@@ -38,3 +38,13 @@ class UserProfileForm(forms.ModelForm):
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
+
+        self.fields['default_phone_number'].widget.attrs[
+            'pattern'] = r'[0-9]{6,15}'
+        self.fields['default_phone_number'].widget.attrs[
+            'title'] = 'Only numbers allowed. Between 6-15.'
+
+        self.fields['default_postcode'].widget.attrs[
+            'pattern'] = r'[A-Za-z0-9\s\-]{3,12}'
+        self.fields['default_postcode'].widget.attrs[
+            'title'] = 'Enter a valid postal code.'
