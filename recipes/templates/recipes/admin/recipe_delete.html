@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5" id="dashboard-admin">
+    
+    <h1 class="text-danger mb-4">Delete Recipe?</h1>
+
+    <p>Are you sure you want to delete <strong>{{ item.name }}</strong>?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, delete it</button>
+        <a href="{% url 'recipes:recipe_list' category %}" class="btn btn-outline-dark">Cancel</a>
+    </form>
+
+</div>
+{% endblock %}
