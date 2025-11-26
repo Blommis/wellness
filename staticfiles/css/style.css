@@ -120,6 +120,30 @@ main {
 #argument-container{
   font-size: 1.5rem !important;
 }
+/*DASHBOARD ADMIN*/
+#dashboard-admin{
+  padding-top: 150px !important;
+}
+
+.dashboard-form p {
+    max-width: 400px;
+}
+
+.dashboard-form input,
+.dashboard-form textarea,
+.dashboard-form select {
+    width: 100%;
+    max-width: 600px;
+}
+
+.dashboard-submit {
+    width: 100% !important;
+    padding: 8px 20px !important;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+}
+
 
 /*Why choose wellness section-ENDS*/
 /*EVENT SECTION*/
@@ -737,6 +761,15 @@ ul li a {
 @media (min-width: 992px) {
   .gallery-masonry {
     column-count: 4;
+  }
+  
+  .dashboard-form,
+  .h1-dashboard,
+  .btn-back-dashboard
+  {
+  max-width: 50%;
+  width: 50%;
+  margin: 0 auto;
   }
 }
 /*FOR XL SCREENS*/
