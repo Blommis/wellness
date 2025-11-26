@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5" id="dashboard-admin">
+
+    <h1 class="mb-4 text-center">Recipe Manager</h1>
+    <p class="text-center text-muted mb-5">Select a category to create, edit or delete recipes.</p>
+
+    <div class="row g-4 justify-content-center">
+
+        <!-- Breakfast -->
+        <div class="col-md-4 col-sm-6">
+            <a href="{% url 'recipes:recipe_list' 'breakfast' %}" class="text-decoration-none">
+                <div class="card shadow-sm p-4 text-center dashboard-card">
+                    <h2 class="mb-2"> Breakfast</h2>
+                    <p class="text-muted">Manage morning meals</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Lunch -->
+        <div class="col-md-4 col-sm-6">
+            <a href="{% url 'recipes:recipe_list' 'lunch' %}" class="text-decoration-none">
+                <div class="card shadow-sm p-4 text-center dashboard-card">
+                    <h2 class="mb-2"> Lunch</h2>
+                    <p class="text-muted">Manage lunch recipes</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Snacks -->
+        <div class="col-md-4 col-sm-6">
+            <a href="{% url 'recipes:recipe_list' 'snack' %}" class="text-decoration-none">
+                <div class="card shadow-sm p-4 text-center dashboard-card">
+                    <h2 class="mb-2"> Snacks</h2>
+                    <p class="text-muted">Manage snack options</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
