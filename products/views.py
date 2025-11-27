@@ -115,8 +115,8 @@ users via @staff_member_required decorators.
 
 
 @staff_member_required
-def supplement_dashboard(request):
-    return render(request, "products/admin/supplement_dashboard.html")
+def products_dashboard(request):
+    return render(request, "products/admin/products_dashboard.html")
 
 
 # List
@@ -173,4 +173,55 @@ def supplement_delete(request, pk):
         return redirect("products:supplement_list")
 
     return render(request, "products/admin/supplement_delete.html",
+                  {"item": item})
+
+
+# MEALPLAN CRUD
+@staff_member_required
+def mealplan_list(request):
+    items = MealPlan.objects.all()
+    return render(request, "products/admin/mealplan_list.html",
+                  {"items": items})
+
+
+@staff_member_required
+def mealplan_create(request):
+    MealPlanForm = modelform_factory(MealPlan, fields="__all__")
+
+    if request.method == "POST":
+        form = MealPlanForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("products:mealplan_list")
+    else:
+        form = MealPlanForm()
+
+    return render(request, "products/admin/mealplan_form.html", {"form": form})
+
+
+@staff_member_required
+def mealplan_edit(request, pk):
+    item = get_object_or_404(MealPlan, pk=pk)
+    MealPlanForm = modelform_factory(MealPlan, fields="__all__")
+
+    if request.method == "POST":
+        form = MealPlanForm(request.POST, request.FILES, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect("products:mealplan_list")
+    else:
+        form = MealPlanForm(instance=item)
+
+    return render(request, "products/admin/mealplan_form.html", {"form": form})
+
+
+@staff_member_required
+def mealplan_delete(request, pk):
+    item = get_object_or_404(MealPlan, pk=pk)
+
+    if request.method == "POST":
+        item.delete()
+        return redirect("products:mealplan_list")
+
+    return render(request, "products/admin/mealplan_delete.html",
                   {"item": item})
