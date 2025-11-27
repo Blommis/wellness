@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5" id="dashboard-admin">
+    <h1 class="mb-4">Manage Supplements</h1>
+
+    <a href="{% url 'products:supplement_list' %}" class="btn btn-primary">View All Supplements</a>
+    <a href="{% url 'products:supplement_create' %}" class="btn btn-success">Add Supplement</a>
+</div>
+{% endblock %}
