@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5" id="dashboard-admin">
+    <h1 class="mb-4 h1-dashboard">Supplement Form</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm dashboard-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-success dashboard-submit">Save</button>
+    </form>
+
+    <a href="{% url 'products:supplement_list' %}" class="btn btn-outline-dark mt-3 d-block mx-auto text-center btn-back-dashboard">← Back</a>
+</div>
+{% endblock %}
