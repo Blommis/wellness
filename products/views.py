@@ -4,6 +4,8 @@ from django.db.models import Q
 from .models import Supplement
 from .models import MealPlan
 from recipes.models import Breakfast, Lunch, Snack
+from django.forms import modelform_factory
+from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 
@@ -97,4 +99,78 @@ def view_mealplan(request):
 
 def supplement_image(request, pk):
     supplement = get_object_or_404(Supplement, pk=pk)
-    return render(request, "products/supplement_image.html", {"supplement": supplement})
+    return render(request, "products/supplement_image.html",
+                  {"supplement": supplement})
+
+
+"""
+Supplement CRUD views for staff dashboard.
+
+Provides full create, read, update, and delete functionality for managing
+supplement products within the admin dashboard. Only accessible to staff
+users via @staff_member_required decorators.
+"""
+
+# Dashboard
+
+
+@staff_member_required
+def supplement_dashboard(request):
+    return render(request, "products/admin/supplement_dashboard.html")
+
+
+# List
+@staff_member_required
+def supplement_list(request):
+    items = Supplement.objects.all()
+    return render(request, "products/admin/supplement_list.html",
+                  {"items": items})
+
+
+# Add supplement
+@staff_member_required
+def supplement_create(request):
+    SupplementForm = modelform_factory(Supplement, fields="__all__")
+
+    if request.method == "POST":
+        form = SupplementForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("products:supplement_list")
+    else:
+        form = SupplementForm()
+
+    return render(request, "products/admin/supplement_form.html",
+                  {"form": form})
+
+# Change supplement
+
+
+@staff_member_required
+def supplement_edit(request, pk):
+    item = get_object_or_404(Supplement, pk=pk)
+    SupplementForm = modelform_factory(Supplement, fields="__all__")
+
+    if request.method == "POST":
+        form = SupplementForm(request.POST, request.FILES, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect("products:supplement_list")
+    else:
+        form = SupplementForm(instance=item)
+
+    return render(request, "products/admin/supplement_form.html",
+                  {"form": form})
+
+
+# Delete supplement
+@staff_member_required
+def supplement_delete(request, pk):
+    item = get_object_or_404(Supplement, pk=pk)
+
+    if request.method == "POST":
+        item.delete()
+        return redirect("products:supplement_list")
+
+    return render(request, "products/admin/supplement_delete.html",
+                  {"item": item})
