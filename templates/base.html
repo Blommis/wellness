@@ -42,7 +42,7 @@
 
         <!-- Mobile: Logo centered -->
         <div class="col-4 d-md-none text-center">
-            <a href="{% url 'home' %}" class="nav-link main-logo-link p-0 m-0">
+            <a href="{% url 'home:index' %}" class="nav-link main-logo-link p-0 m-0">
                 <h2 class="logo-font text-white my-0"><strong>Wellness</strong></h2>
             </a>
         </div>
@@ -73,7 +73,7 @@
 
         <!-- Desktop: Logo centered -->
         <div class="col-md-4 d-none d-md-block text-center">
-            <a href="{% url 'home' %}" class="nav-link main-logo-link p-0 m-0">
+            <a href="{% url 'home:index' %}" class="nav-link main-logo-link p-0 m-0">
                 <h2 class="logo-font text-white my-0"><strong>Wellness</strong></h2>
             </a>
         </div>
@@ -131,9 +131,9 @@
    <!-- Footer -->
 <section id="footer">
   <div>
-    <h4 class="footerheader"><a href="{% url 'home' %}">Home</a></h4>
+    <h4 class="footerheader"><a href="{% url 'home:index' %}">Home</a></h4>
     <ul>
-      <li><a href="{% url 'home' %}#events">Events</a></li>
+      <li><a href="{% url 'home:index' %}#events">Events</a></li>
     </ul>
   </div>
   <div>
