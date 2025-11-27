@@ -11,14 +11,29 @@ urlpatterns = [
     path('supplement/<int:pk>/image/', views.supplement_image,
          name='supplement_image'),
 
-    path("dashboard/supplements/", views.supplement_dashboard,
-         name="supplement_dashboard"),
-    path("dashboard/supplements/list/", views.supplement_list,
+    # Main Products Dashboard
+    path("dashboard/products/", views.products_dashboard,
+         name="products_dashboard"),
+
+    # supplement CRUD
+    path("dashboard/products/supplements/", views.supplement_list,
          name="supplement_list"),
-    path("dashboard/supplements/add/", views.supplement_create,
+    path("dashboard/products/supplements/add/", views.supplement_create,
          name="supplement_create"),
-    path("dashboard/supplements/<int:pk>/edit/", views.supplement_edit,
+    path("dashboard/products/supplements/<int:pk>/edit/",
+         views.supplement_edit,
          name="supplement_edit"),
-    path("dashboard/supplements/<int:pk>/delete/", views.supplement_delete,
+    path("dashboard/products/supplements/<int:pk>/delete/",
+         views.supplement_delete,
          name="supplement_delete"),
+
+    # Meal Plans CRUD
+    path("dashboard/products/mealplans/",
+         views.mealplan_list, name="mealplan_list"),
+    path("dashboard/products/mealplans/add/",
+         views.mealplan_create, name="mealplan_create"),
+    path("dashboard/products/mealplans/<int:pk>/edit/",
+         views.mealplan_edit, name="mealplan_edit"),
+    path("dashboard/products/mealplans/<int:pk>/delete/",
+         views.mealplan_delete, name="mealplan_delete"),
 ]
