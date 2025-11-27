@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5" id="dashboard-admin">
+    <h1>Mealplans</h1>
+
+    <a href="{% url 'products:mealplan_create' %}" class="btn btn-success mb-3">+ Add Mealplan</a>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Calories</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.calories }}</td>
+            <td>£{{ item.price }}</td>
+            <td>{{ item.sku }}</td>
+            <td>
+                <a href="{% url 'products:mealplan_edit' item.id %}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="{% url 'products:mealplan_delete' item.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
