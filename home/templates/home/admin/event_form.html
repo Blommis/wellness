@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5" id="dashboard-admin">
+
+    <h1 class="mb-4 h1-dashboard">
+        {% if form.instance.pk %} Edit Event {% else %} Create Event {% endif %}
+    </h1>
+
+    <form method="POST" enctype="multipart/form-data"
+          class="card p-4 shadow-sm dashboard-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-success dashboard-submit">
+            {% if form.instance.pk %} Save Changes {% else %} Save {% endif %}
+        </button>
+    </form>
+
+    <a href="{% url 'home:event_list' %}"
+       class="btn btn-outline-dark mt-3 d-block mx-auto text-center btn-back-dashboard">
+        ← Back
+    </a>
+
+</div>
+{% endblock %}

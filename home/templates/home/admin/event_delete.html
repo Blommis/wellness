@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5" id="dashboard-admin">
+    <h1 class="text-danger">Delete event</h1>
+
+    <p>Are you sure you want to delete <strong>{{ item.title }}</strong>?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button class="btn btn-danger">Delete</button>
+        <a href="{% url 'home:event_list' %}" class="btn btn-outline-dark">Cancel</a>
+    </form>
+</div>
+{% endblock %}
