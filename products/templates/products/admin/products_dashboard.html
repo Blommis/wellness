@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5" id="dashboard-admin">
+
+    <h1 class="mb-4 text-center">Products Manager</h1>
+    <p class="text-center text-muted mb-5">Manage supplements and meal plans: create, edit or delete items.</p>
+
+    <div class="row g-4 justify-content-center">
+
+        <!-- Supplements -->
+        <div class="col-md-4 col-sm-6">
+            <a href="{% url 'products:supplement_list' %}" class="text-decoration-none">
+                <div class="card shadow-sm p-4 text-center dashboard-card">
+                    <h2 class="mb-2">Supplements</h2>
+                    <p class="text-muted">Manage supplement products</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Meal Plans -->
+        <div class="col-md-4 col-sm-6">
+            <a href="{% url 'products:mealplan_list' %}" class="text-decoration-none">
+                <div class="card shadow-sm p-4 text-center dashboard-card">
+                    <h2 class="mb-2">Meal Plans</h2>
+                    <p class="text-muted">Manage meal plan options</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
