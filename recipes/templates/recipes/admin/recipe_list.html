@@ -23,8 +23,8 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Name</th>
-                <th>Updated</th>
                 <th style="width: 200px;">Actions</th>
             </tr>
         </thead>
@@ -32,8 +32,16 @@
         <tbody>
             {% for item in items %}
                 <tr>
+                    <td>
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" 
+                         style="height:50px; width: 50px;">
+                {% else %}
+                    <span class="text-muted">No image</span>
+                {% endif %}
+            </td>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.id }}</td>
+                    
                     <td>
                         <a href="{% url 'recipes:recipe_edit' category item.id %}" class="btn btn-sm btn-primary">Edit</a>
                         <a href="{% url 'recipes:recipe_delete' category item.id %}" class="btn btn-sm btn-danger">Delete</a>
