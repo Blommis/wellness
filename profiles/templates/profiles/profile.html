@@ -8,13 +8,14 @@
 {% block content %}
 <div class="container py-5" id="profile-page">
   
+  {% if user.is_staff %}
   <div class="superuser-box">
   <!-- link to admin in CRUD -->
-        {% if user.is_staff %}
         <h1> You are logged in as a superuser</h1>
         <p>To manage supplements, recipes, mealplans or events. <a href="{% url 'home:master_dashboard' %}"> Visit dashboard</a></p>
-        {% endif %}
   </div>
+  {% endif %}
+  
   <h2 class="mb-4">My Profile</h2>
 
    {% if messages %}
