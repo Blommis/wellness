@@ -144,6 +144,19 @@ main {
     margin-top: 10px;
 }
 
+/*DASHBOARD ADMIN ENDS*/
+
+/*super user admin link in profiles profile.html*/
+.superuser-box {
+    border: 2px solid #198754;      
+    padding: 20px;             
+    background-color: #f8fff8;      
+    max-width: 600px;
+    margin: 40px auto;              
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+}
+
 
 /*Why choose wellness section-ENDS*/
 /*EVENT SECTION*/
