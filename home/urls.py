@@ -5,7 +5,7 @@ app_name = "home"
 
 urlpatterns = [
     path('', views.index, name='index'),
-
+    path("dashboard/", views.master_dashboard, name="master_dashboard"),
     # EVENT CRUD
     path("dashboard/events/", views.event_list, name="event_list"),
     path("dashboard/events/add/", views.event_create, name="event_create"),

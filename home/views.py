@@ -12,6 +12,12 @@ def index(request):
     return render(request, 'home/index.html', {'events': events})
 
 
+# Main dashbaord site for super user (CRUD)
+@staff_member_required
+def master_dashboard(request):
+    return render(request, "home/master_dashboard.html")
+
+
 # ADMIN — EVENT LIST
 @staff_member_required
 def event_list(request):
@@ -62,3 +68,5 @@ def event_delete(request, pk):
         return redirect("home:event_list")
 
     return render(request, "home/admin/event_delete.html", {"item": item})
+
+
