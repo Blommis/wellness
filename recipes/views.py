@@ -6,8 +6,8 @@ from reviews.forms import ReviewForm
 from reviews.models import Review
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
-from .forms import RecipeForm
 from django.forms import modelform_factory
+from django.contrib import messages
 
 # Create your views here.
 
@@ -108,15 +108,19 @@ def recipe_dashboard(request):
 # List recipes
 @staff_member_required
 def recipe_list(request, category):
-    model = {"breakfast": Breakfast, "lunch": Lunch, "snack": Snack}.get(category)
+    model = {"breakfast": Breakfast, "lunch": Lunch,
+             "snack": Snack}.get(category)
     items = model.objects.all()
-    return render(request, "recipes/admin/recipe_list.html", {"items": items, "category": category})
+    return render(
+        request, "recipes/admin/recipe_list.html",
+        {"items": items, "category": category})
 
 
 # Create recipe
 @staff_member_required
 def recipe_create(request, category):
-    model = {"breakfast": Breakfast, "lunch": Lunch, "snack": Snack}.get(category)
+    model = {"breakfast": Breakfast, "lunch": Lunch,
+             "snack": Snack}.get(category)
 
     DynamicRecipeForm = modelform_factory(model, fields="__all__")
 
@@ -124,17 +128,24 @@ def recipe_create(request, category):
         form = DynamicRecipeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(
+                request, f"{category.title()} recipe created successfully!")
             return redirect("recipes:recipe_list", category=category)
+        messages.error(
+            request, "Failed to create recipe. Please correct the errors")
     else:
         form = DynamicRecipeForm()
 
-    return render(request, "recipes/admin/recipe_form.html", {"form": form, "category": category})
+    return render(
+        request, "recipes/admin/recipe_form.html", {"form": form,
+                                                    "category": category})
 
 
 # Update recipe
 @staff_member_required
 def recipe_edit(request, category, pk):
-    model = {"breakfast": Breakfast, "lunch": Lunch, "snack": Snack}.get(category)
+    model = {"breakfast": Breakfast, "lunch": Lunch,
+             "snack": Snack}.get(category)
     item = get_object_or_404(model, pk=pk)
 
     DynamicRecipeForm = modelform_factory(model, fields="__all__")
@@ -143,21 +154,33 @@ def recipe_edit(request, category, pk):
         form = DynamicRecipeForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
             form.save()
+            messages.success(
+                request, f"{category.title()} recipe updated successfully!")
             return redirect("recipes:recipe_list", category=category)
+        messages.error(
+            request,
+            "Failed to update recipe. Please correct the errors below.")
     else:
         form = DynamicRecipeForm(instance=item)
 
-    return render(request, "recipes/admin/recipe_form.html", {"form": form, "category": category})
+    return render(
+        request, "recipes/admin/recipe_form.html",
+        {"form": form, "category": category})
 
 
 # Delete recipe
 @staff_member_required
 def recipe_delete(request, category, pk):
-    model = {"breakfast": Breakfast, "lunch": Lunch, "snack": Snack}.get(category)
+    model = {"breakfast": Breakfast, "lunch": Lunch,
+             "snack": Snack}.get(category)
     item = get_object_or_404(model, pk=pk)
 
     if request.method == "POST":
         item.delete()
+        messages.success(
+            request, f"{category.title()} recipe deleted successfully!")
         return redirect("recipes:recipe_list", category=category)
 
-    return render(request, "recipes/admin/recipe_delete.html", {"item": item, "category": category})
+    return render(
+        request, "recipes/admin/recipe_delete.html",
+        {"item": item, "category": category})
