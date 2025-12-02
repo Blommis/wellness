@@ -614,13 +614,15 @@ ul li a {
 }
 
 .newsletter-btn {
-  background-color: #ff8800 !important;
+  background-color: #c66a01 !important;
   border-color: #ff8800 !important;
   color: white;
+  font-weight: bolder;
+  text-shadow: 0 0 2px rgba(15, 15, 15, 0.562);
 }
 
 .newsletter-btn:hover {
-  background-color: #e67600 !important;
+  background-color: #ff8502 !important;
   border-color: #e67600 !important;
 }
 
