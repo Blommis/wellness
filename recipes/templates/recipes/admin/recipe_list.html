@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container py-5" id="dashboard-admin">
-
+<a href="{% url 'recipes:recipe_dashboard' %}">Back to recipe manager</a>
     <h1 class="mb-4">Manage {{ category|title }} Recipes</h1>
 
     <a href="{% url 'recipes:recipe_create' category %}" class="btn btn-success mb-3">
