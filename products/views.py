@@ -136,7 +136,10 @@ def supplement_create(request):
         form = SupplementForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Supplement created successfully!")
             return redirect("products:supplement_list")
+        messages.error(request,
+                       "Failed to create supplement. Please fix the errors.")
     else:
         form = SupplementForm()
 
@@ -155,7 +158,9 @@ def supplement_edit(request, pk):
         form = SupplementForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
             form.save()
+            messages.success(request, "Supplement updated successfully!")
             return redirect("products:supplement_list")
+        messages.error(request, "Update failed. Please check the errors.")
     else:
         form = SupplementForm(instance=item)
 
@@ -170,6 +175,7 @@ def supplement_delete(request, pk):
 
     if request.method == "POST":
         item.delete()
+        messages.success(request, "Supplement successfully deleted!")
         return redirect("products:supplement_list")
 
     return render(request, "products/admin/supplement_delete.html",
@@ -192,7 +198,10 @@ def mealplan_create(request):
         form = MealPlanForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Mealplan created successfully!")
             return redirect("products:mealplan_list")
+        messages.error(request,
+                       "Failed to create mealplan. Please correct the errors.")
     else:
         form = MealPlanForm()
 
@@ -208,7 +217,9 @@ def mealplan_edit(request, pk):
         form = MealPlanForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
             form.save()
+            messages.success(request, "Mealplan updated successfully!")
             return redirect("products:mealplan_list")
+        messages.error(request, "Update failed. Please fix the errors.")
     else:
         form = MealPlanForm(instance=item)
 
@@ -221,6 +232,7 @@ def mealplan_delete(request, pk):
 
     if request.method == "POST":
         item.delete()
+        messages.success(request, "Mealplan deleted successfully!")
         return redirect("products:mealplan_list")
 
     return render(request, "products/admin/mealplan_delete.html",
