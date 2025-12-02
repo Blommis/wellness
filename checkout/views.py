@@ -26,7 +26,7 @@ def checkout(request):
 
     if not bag:
         messages.error(request, "Unfortunately, your bag is empty.")
-        return redirect(reverse('home'))
+        return redirect(reverse('home:index'))
 
     if request.method == 'POST':
         form_data = {
@@ -125,7 +125,7 @@ def checkout_success(request, stripe_pid):
 
     if not order:
         messages.error(request, "Your order could not be found.")
-        return redirect('home')
+        return redirect('home:index')
 
     # Empty bag
     if 'bag' in request.session:
