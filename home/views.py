@@ -3,6 +3,7 @@ from django.forms import modelform_factory
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import Event
 from datetime import date
+from django.contrib import messages
 # Create your views here.
 
 
@@ -34,7 +35,11 @@ def event_create(request):
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Event created successfully!")
             return redirect("home:event_list")
+        else:
+            messages.error(request,
+                           "Something went wrong. Please check the form.")
     else:
         form = EventForm()
 
@@ -51,7 +56,11 @@ def event_edit(request, pk):
         form = EventForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
             form.save()
+            messages.success(request, "Event updated successfully!")
             return redirect("home:event_list")
+        else:
+            messages.error(request,
+                           "Could not update event. Please review the form.")
     else:
         form = EventForm(instance=item)
 
@@ -65,8 +74,7 @@ def event_delete(request, pk):
 
     if request.method == "POST":
         item.delete()
+        messages.success(request, "Event deleted successfully!")
         return redirect("home:event_list")
 
     return render(request, "home/admin/event_delete.html", {"item": item})
-
-
