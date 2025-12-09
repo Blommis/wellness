@@ -99,6 +99,15 @@ def delete_review(request, review_id):
     return redirect('recipes:recipe_detail', category=category, pk=object_id)
 
 
+"""
+Recipe CRUD views for staff dashboard.
+
+Provides full create, read, update, and delete functionality for managing
+recipes within the admin dashboard. Only accessible to staff
+users via @staff_member_required decorators.
+"""
+
+
 # Admin dashboard (choose category)
 @staff_member_required
 def recipe_dashboard(request):

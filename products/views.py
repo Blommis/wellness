@@ -104,11 +104,11 @@ def supplement_image(request, pk):
 
 
 """
-Supplement CRUD views for staff dashboard.
+Supplement and mealplan CRUD views for staff dashboard.
 
 Provides full create, read, update, and delete functionality for managing
-supplement products within the admin dashboard. Only accessible to staff
-users via @staff_member_required decorators.
+supplement products and mealplans within the admin dashboard.
+Only accessible to staff users via @staff_member_required decorators.
 """
 
 # Dashboard

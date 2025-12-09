@@ -19,6 +19,15 @@ def master_dashboard(request):
     return render(request, "home/master_dashboard.html")
 
 
+"""
+Event CRUD views for staff dashboard.
+
+Provides full create, read, update, and delete functionality for managing
+events within the admin dashboard. Only accessible to staff
+users via @staff_member_required decorators.
+"""
+
+
 # ADMIN — EVENT LIST
 @staff_member_required
 def event_list(request):
