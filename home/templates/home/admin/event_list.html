@@ -3,10 +3,10 @@
 <div class="container py-5" id="dashboard-admin">
 <a href="{% url 'home:master_dashboard' %}">Back to admin dashboard</a>
 
-    <h1 class="mb-4 text-center">Event Manager</h1>
-    <p class="text-center text-muted mb-4">Create, edit or delete events.</p>
+    <h1 class="mb-4">Event Manager</h1>
+    <p class="text-muted mb-4">Create, edit or delete events.</p>
 
-    <div class="text-center mb-4">
+    <div class="mb-4">
         <a href="{% url 'home:event_create' %}" class="btn btn-success">+ Add Event</a>
     </div>
               {% if messages %}
